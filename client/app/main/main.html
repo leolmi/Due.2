@@ -1,0 +1,32 @@
+<div class="main-container">
+  <div class="vertical-menu">
+    <i class="fa fa-fw due-fa-btn" ng-hide="b.separator" ng-repeat-start="b in buttons" ng-class="b.style" ng-click="b.action()"></i>
+    <div class="separator" ng-show="b.separator" ng-repeat-end></div>
+  </div>
+  <div class="vertical-submenu" ng-class="{'active':submenu}">
+    <div class="submenu">
+      <div class="title">{{submenu.title}}</div>
+      <div class="body">
+        <div ng-if="submenu.template" ng-include="submenu.template"></div>
+      </div> 
+    </div>
+    <div class="overlay" ng-click="closeSubMenu()"></div>
+  </div>
+  <div class="scroller" ng-mouse-wheel="scrollData">
+    <div class="middle-line"></div>
+    <div class="item-row center-text" ng-class="{'week-end':d.we, 'central':d.central, 'today':d.today, 'last':d.last, 'first':d.num==1}" ng-repeat="d in days">
+      <div class="item-row-element item-row-dues item-row-dues-out">
+        <due-item ng-repeat="i in visibleDues | filter: { date:d.N, type:'out' }" ng-model="i" ng-click="edit(i)"></due-item>
+      </div>
+      <div class="item-row-element item-row-element-date item-row-day center-text">
+        <div class="day-num">{{d.num}}</div>
+        <div class="day-desc">{{d.desc}}</div>
+        <div class="day-month day-month-first" ng-show="d.num==1 || d.central">{{d.month}}</div>
+        <div class="day-month day-month-last" ng-show="d.last || d.central">{{d.central ? d.year : d.month}}</div>
+      </div>
+      <div class="item-row-element item-row-dues item-row-dues-in">
+        <due-item ng-repeat="i in visibleDues | filter: { date:d.N, type:'in' }" ng-model="i" ng-click="edit(i)"></due-item>
+      </div>
+    </div>
+  </div>
+</div>

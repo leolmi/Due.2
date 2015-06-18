@@ -1,0 +1,15 @@
+<div data-ng-controller="GotoCtrl">
+  <div class="radio">
+    <label>
+      <input type="radio" id="radio1" ng-model="target" value="today"> Today
+    </label>
+  </div>
+  <div class="radio">
+    <label>
+      <input type="radio" id="radio2" ng-model="target" value="userdate"> Choise a date:
+    </label>
+    <input id="timepicker" type="date" class="form-control input-sm" datepicker-popup ng-model="initdate" 
+      is-open="opened" datepicker-options="submenu.dateOptions" close-text="Close"/>
+  </div>
+  <i class="fa fa-2x fa-play-circle aslink btn-go" ng-click="apply()"></i>
+</div>

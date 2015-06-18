@@ -1,0 +1,46 @@
+due-item {
+  top: 0;
+  padding: 4px;
+  display: inline-block;
+  height: 100%;
+  border: transparent 1px solid;
+  border-radius: 6px;
+  opacity: .4;
+  max-width: 80px;
+  overflow: hidden;
+  min-width: 30px;
+}
+due-item:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.item-row-dues-in > due-item {
+  color:#fff;
+  background-color: #47a447;
+  border-color: #398439;
+}
+.item-row-dues-out > due-item {
+  color:#fff;
+  background-color: #d2322d;
+  border-color: #ac2925;
+}
+
+
+due-item > .name {
+  height: 20px;
+  overflow: inherit;
+  text-overflow: ellipsis;
+  font-size: 10px;  
+}
+
+due-item > .value {
+  width: 100%;
+  text-align: right;
+  font-weight: bold;
+}
+
+.item-row.central due-item {
+  opacity: 1;
+  border-color: yellowgreen;
+}
