@@ -1,8 +1,11 @@
 <div class="modal-edit" ng-controller="ModalEditCtrl">
+  <div class="monitor">
+
+  </div>
   <label>Due Title</label>
   <input type="text" class="form-control input-sm" ng-model="modal.item.name">
   <label>Date</label>
-  <input id="timepicker-edit" type="date" class="form-control input-sm" datepicker-popup ng-model="modal.item.real_date" 
+  <input id="timepicker-edit" type="date" class="form-control input-sm" datepicker-popup ng-model="modal.item.real_date"
       is-open="opened" datepicker-options="dateOptions" close-text="Close" ng-change="syncdate()"/>
   <label>Value</label>
   <div class="input-group">

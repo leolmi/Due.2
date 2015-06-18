@@ -8,7 +8,7 @@
       <div class="title">{{submenu.title}}</div>
       <div class="body">
         <div ng-if="submenu.template" ng-include="submenu.template"></div>
-      </div> 
+      </div>
     </div>
     <div class="overlay" ng-click="closeSubMenu()"></div>
   </div>
@@ -16,7 +16,7 @@
     <div class="middle-line"></div>
     <div class="item-row center-text" ng-class="{'week-end':d.we, 'central':d.central, 'today':d.today, 'last':d.last, 'first':d.num==1}" ng-repeat="d in days">
       <div class="item-row-element item-row-dues item-row-dues-out">
-        <due-item ng-repeat="i in visibleDues | filter: { date:d.N, type:'out' }" ng-model="i" ng-click="edit(i)"></due-item>
+        <due-item ng-repeat="i in visibleDues | filter: { date:d.N, type:'out' }" ng-model="i" ng-click="edit(i)" title="{{i.info}}"></due-item>
       </div>
       <div class="item-row-element item-row-element-date item-row-day center-text">
         <div class="day-num">{{d.num}}</div>
@@ -25,7 +25,7 @@
         <div class="day-month day-month-last" ng-show="d.last || d.central">{{d.central ? d.year : d.month}}</div>
       </div>
       <div class="item-row-element item-row-dues item-row-dues-in">
-        <due-item ng-repeat="i in visibleDues | filter: { date:d.N, type:'in' }" ng-model="i" ng-click="edit(i)"></due-item>
+        <due-item ng-repeat="i in visibleDues | filter: { date:d.N, type:'in' }" ng-model="i" ng-click="edit(i)" title="{{i.info}}"></due-item>
       </div>
     </div>
   </div>

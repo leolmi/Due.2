@@ -4,7 +4,6 @@ due-item {
   display: inline-block;
   height: 100%;
   border: transparent 1px solid;
-  border-radius: 6px;
   opacity: .4;
   max-width: 80px;
   overflow: hidden;
@@ -31,7 +30,7 @@ due-item > .name {
   height: 20px;
   overflow: inherit;
   text-overflow: ellipsis;
-  font-size: 10px;  
+  font-size: 10px;
 }
 
 due-item > .value {

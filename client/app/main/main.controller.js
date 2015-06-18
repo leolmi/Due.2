@@ -10,13 +10,13 @@ angular.module('due2App')
         var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
         if(delta != 0) {
           scope.$apply(function(){
-            scope.$eval(scope[attrs.ngMouseWheel](delta));
-          });          
+            scope.$eval(scope[attrs.ngMouseWheel](-delta));
+          });
           // for IE
           e.returnValue = false;
           // for Chrome and Firefox
           if(e.preventDefault)
-            e.preventDefault();                        
+            e.preventDefault();
         }
       });
     };
@@ -33,10 +33,10 @@ angular.module('due2App')
         central: Util.toDays(new Date())
       };
     }
-    
+
     var daysOfWeek = ['domenica','lunedì','martedì','mercoledì','giovedì','venerdì','sabato'];
     var months = ['gennaio','febbraio','marzo','aprile','maggio','giugno','luglio','agosto','settembre','ottobre','novembre','dicembre'];
-    
+
     function rebuildDays() {
       var days = [];
       var today = Util.toDays(new Date());
@@ -59,7 +59,7 @@ angular.module('due2App')
       }
       $scope.days = days;
     }
-    
+
     // Carica gli elementi
     function loadDuesBase(cb) {
       cb = cb || angular.noop;
@@ -75,7 +75,7 @@ angular.module('due2App')
           Logger.error('Error loading dues!', err);
         });
     }
-    
+
     // Carica gli elementi
     function loadDues(cb) {
       var offset = 0;
@@ -87,10 +87,10 @@ angular.module('due2App')
       if ($scope.loading_prm)
         $timeout.cancel($scope.loading_prm);
       $scope.loading_prm = $timeout(function() {
-        $scope.loading = true; 
-        loadDuesBase(cb); 
+        $scope.loading = true;
+        loadDuesBase(cb);
       }, 300);
-      
+
       $scope.loading_prm.then(
         function() {
           $scope.loading = false;
@@ -100,21 +100,21 @@ angular.module('due2App')
         }
       );
     }
-   
+
     $scope.logout = function() {
       Auth.logout();
       $location.path('/login');
     };
-    
+
     $scope.profile = function() {
       $location.path('/settings');
     };
-    
+
     $scope.settings = function() {
       $scope.submenu = { title: 'Options' };
     };
-    
-    
+
+
     var modalCreate = Modal.confirm.edit(function(item) {
       if (item.real_date)
         item.date = Util.toDays(item.real_date);
@@ -126,7 +126,7 @@ angular.module('due2App')
           Logger.error("Error creating new due", JSON.stringify(err));
         });
     });
-    
+
     $scope.newelement = function() {
       var item = {
         name: 'New Due',
@@ -136,14 +136,14 @@ angular.module('due2App')
       };
       modalCreate(item);
     };
-    
+
     $scope.goto = function() {
-      $scope.submenu = { 
+      $scope.submenu = {
         title: 'Go to...',
         template: 'app/main/submenu-goto.html'
       };
     };
-    
+
     $scope.buttons = [{
       style: 'fa-power-off',
       action: $scope.logout
@@ -164,12 +164,12 @@ angular.module('due2App')
       style: 'fa-map-marker',
       action: $scope.goto
     }];
-    
+
     $scope.$on('$destroy', function () {
       socket.unsyncUpdates('due');
       $timeout.cancel($scope.loading_prm);
     });
-   
+
     var modalEdit = Modal.confirm.edit(function(item) {
       $http.put('/api/dues/'+item._id, item)
         .success(function(due) {
@@ -179,18 +179,18 @@ angular.module('due2App')
           Logger.error("Error creating new due", JSON.stringify(err));
         });
     });
-   
+
     $scope.edit = function(item){ modalEdit(item); };
-   
+
     $scope.closeSubMenu = function() {
       $scope.submenu = undefined;
     };
-    
+
     $scope.scrollData = function(value) {
       $rootScope.userdata.central += value;
       loadDues();
     };
-    
+
     $scope.goto = function(date) {
       var todate = Util.toDays(date);
       if (todate) {
@@ -199,16 +199,16 @@ angular.module('due2App')
         $scope.closeSubMenu();
       }
     };
-    
+
     loadDues();
   }]);
-    
+
 //     $scope.addThing = function() {
 //       if($scope.newThing === '') { return; }
 //       $http.post('/api/things', { name: $scope.newThing });
 //       $scope.newThing = '';
 //     };
-// 
+//
 //     $scope.deleteThing = function(thing) {
 //       $http.delete('/api/things/' + thing._id);
 //     };

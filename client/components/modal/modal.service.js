@@ -28,7 +28,7 @@ angular.module('due2App')
     return {
       MODAL_DELETE:modal_DELETE,
       MODAL_YESNOCANCEL:modal_YESNOCANCEL,
-      
+
       /* Confirmation modals */
       confirm: {
         /**
@@ -66,7 +66,7 @@ angular.module('due2App')
           }
           return opt;
         },
-        
+
 
         /**
          * Create a function to open a generic confirmation modal (ex. ng-click='myModalFn(options, arg1, arg2...)')
@@ -129,8 +129,8 @@ angular.module('due2App')
             });
           };
         },
-        
-        
+
+
         /**
          * Modifica una scadenza ...
          * @param cb
@@ -147,7 +147,7 @@ angular.module('due2App')
                 item: args[0],
                 dismissable: true,
                 idle: false,
-                title: 'Modify Due',
+                title: 'Due',
                 template: 'components/modal/modal-edit.html',
                 buttons: [{
                   classes: 'btn-success',
@@ -170,7 +170,7 @@ angular.module('due2App')
             });
           };
         }
-        
+
       }
     };
   }]);

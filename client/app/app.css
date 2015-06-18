@@ -73,9 +73,14 @@ body {
 
 .shadow {
   -webkit-box-shadow: 0 6px 21px rgba(0,0,0,0.7);
+  -moz-box-shadow: 0 6px 21px rgba(0,0,0,0.7);
   box-shadow: 0 6px 21px rgba(0,0,0,0.7);
 }
-
+.shadow-inset {
+  -webkit-box-shadow: 0 6px 21px rgba(0,0,0,0.7) inset;
+  -moz-box-shadow: 0 6px 21px rgba(0,0,0,0.7) inset;
+  box-shadow: 0 6px 21px rgba(0,0,0,0.7) inset;
+}
 
 
 .primary {

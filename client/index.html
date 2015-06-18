@@ -21,13 +21,14 @@
     <!-- build:css({.tmp,client}) app/app.css -->
     <link rel="stylesheet" href="app/app.css">
       <!-- injector:css -->
-      <link rel="stylesheet" href="app/admin/admin.css">
-      <link rel="stylesheet" href="app/main/main.css">
-      <link rel="stylesheet" href="app/main/due-item.css">
-      <link rel="stylesheet" href="app/main/submenu-goto.css">
       <link rel="stylesheet" href="app/account/login/login.css">
-      <link rel="stylesheet" href="components/modal/modal.css">
+      <link rel="stylesheet" href="app/admin/admin.css">
+      <link rel="stylesheet" href="app/app.css">
+      <link rel="stylesheet" href="app/main/due-item.css">
+      <link rel="stylesheet" href="app/main/main.css">
+      <link rel="stylesheet" href="app/main/submenu-goto.css">
       <link rel="stylesheet" href="components/modal/modal-edit.css">
+      <link rel="stylesheet" href="components/modal/modal.css">
       <!-- endinjector -->
     <!-- endbuild -->
   </head>
@@ -63,10 +64,9 @@
       <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
       <script src="bower_components/angular-route/angular-route.js"></script>
       <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-      <script src="bower_components/angular-toastr/dist/angular-toastr.js"></script>
-      <script src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
       <script src="bower_components/lodash/dist/lodash.compat.js"></script>
       <script src="bower_components/angular-socket-io/socket.js"></script>
+      <script src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
       <!-- endbower -->
       <script src="socket.io-client/socket.io.js"></script>
     <!-- endbuild -->
@@ -79,21 +79,20 @@
           <script src="app/account/settings/settings.controller.js"></script>
           <script src="app/admin/admin.controller.js"></script>
           <script src="app/admin/admin.js"></script>
+          <script src="app/main/due-item.directive.js"></script>
           <script src="app/main/goto.controller.js"></script>
           <script src="app/main/main.controller.js"></script>
           <script src="app/main/main.js"></script>
-          <script src="app/main/due-item.directive.js"></script>
-          
           <script src="components/auth/auth.service.js"></script>
           <script src="components/auth/user.service.js"></script>
-          <script src="components/utilities/util.service.js"></script>
-          <script src="components/modal/modal.service.js"></script>
+          <script src="components/logger/log.service.js"></script>
           <script src="components/modal/modal-edit.controller.js"></script>
+          <script src="components/modal/modal.service.js"></script>
           <script src="components/mongoose-error/mongoose-error.directive.js"></script>
           <script src="components/navbar/navbar.controller.js"></script>
           <script src="components/socket/socket.io.js"></script>
           <script src="components/socket/socket.service.js"></script>
-          <script src="components/logger/log.service.js"></script>
+          <script src="components/utilities/util.service.js"></script>
           <!-- endinjector -->
         <!-- endbuild -->
 </body>

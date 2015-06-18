@@ -53,10 +53,14 @@
 .item-row.today {
   background-color: darkorange;
   color: #111;
+  -webkit-box-shadow: 0 6px 21px rgba(0,0,0,0.7) inset;
+  -moz-box-shadow: 0 6px 21px rgba(0,0,0,0.7) inset;
+  box-shadow: 0 6px 21px rgba(0,0,0,0.7) inset;
 }
 
 .item-row.week-end {
   background-color: #111;
+  border-color: #222;
 }
 
 .item-row.central {
@@ -68,6 +72,7 @@
   overflow: hidden;
   z-index: 60;
   -webkit-box-shadow: 0 6px 21px rgba(0,0,0,0.7);
+  -moz-box-shadow: 0 6px 21px rgba(0,0,0,0.7);
   box-shadow: 0 6px 21px rgba(0,0,0,0.7);
 }
 
@@ -86,7 +91,7 @@
   left: calc(50% - 40px);
 }
 .item-row-day > .day-num {
-  font-size: 30px;  
+  font-size: 30px;
   width: 100%;
   margin-top: -10px;
 }
