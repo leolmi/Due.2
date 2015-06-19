@@ -160,10 +160,6 @@
   margin-top: -4px;
 }
 
-.over-page.active {
-  overflow: auto;
-}
-
 .over-page > .overlay{
   background-color: #0A0A16;
   bottom: 0;
@@ -192,6 +188,7 @@
   position: fixed;
   height: 100%;
   z-index: 210;
+  overflow: auto;
 }
 
 

@@ -1,13 +1,28 @@
 <div class="overpage overpage-search container" ng-controller="SearchCtrl">
   <h1>Search for dues...</h1>
   <input type="text" class="form-control input-sm" ng-model="searchtext">
-  
-
-
+  <div class="options">
+    <div>
+      <label>
+        <input type="checkbox" ng-model="expired"> Expired
+      </label>
+    </div>
+    <div>
+      <label>
+        <input type="checkbox" ng-model="state"> Undone
+      </label>
+    </div>
+    <div>
+      <label>
+        <input type="checkbox" ng-model="details"> Details
+      </label>
+    </div>
+  </div>
   <div class="search-results">
-    <due-item ng-repeat="i in alldues | filter: searchtext | filter: extendedFilter"
-              ng-class="{'due-in': i.type=='in', 'due-out':i.type=='out', 'expired':i.data.expired}"
+    <div class="due-item-detail" ng-repeat="i in alldues | filter: searchtext | options:state:expired">
+      <due-item ng-class="{'due-in': i.type=='in', 'due-out':i.type=='out', 'expired':i.data.expired}"
               ng-model="i" ng-click="edit(i)" title="{{i.info}}"></due-item>
+    </div>
   </div>
 </div>
 

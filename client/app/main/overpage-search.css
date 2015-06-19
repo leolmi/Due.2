@@ -14,8 +14,19 @@
   position: relative;
 }
 
-.search-results > due-item {
+.search-results due-item {
   padding: 4px 6px 10px;
   margin: 4px;
   border-radius: 4px;
+}
+.due-item-detail {
+  display: inline-block;
+}
+
+.overpage-search > .options {
+  padding: 20px 0 0;
+}
+.overpage-search > .options > div {
+  display: inline-block;
+  margin: 0 10px;
 }
