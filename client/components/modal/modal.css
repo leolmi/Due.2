@@ -35,3 +35,6 @@
   display: block;
   margin: 10px 0;
 }
+.label-alone > i {
+  font-size: 16px;
+}

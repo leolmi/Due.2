@@ -17,6 +17,9 @@ angular.module('due2App')
 
       angular.extend(modalScope, scope);
 
+      if ($rootScope.userdata)
+        $rootScope.userdata.ismodal = true;
+
       return $modal.open({
         templateUrl: 'components/modal/modal.html',
         windowClass: modalClass,
@@ -24,7 +27,11 @@ angular.module('due2App')
       });
     }
 
-    // Public API here
+    function resetModalState() {
+      if ($rootScope.userdata)
+        $rootScope.userdata.ismodal = false;
+    }
+
     return {
       MODAL_DELETE:modal_DELETE,
       MODAL_YESNOCANCEL:modal_YESNOCANCEL,
@@ -124,8 +131,10 @@ angular.module('due2App')
 
             execModal.result.then(function(event) {
               exc.apply(event, args);
+              resetModalState();
             }, function(event){
               dsc.apply(event, args);
+              resetModalState();
             });
           };
         },
@@ -147,7 +156,7 @@ angular.module('due2App')
                 item: args[0],
                 dismissable: true,
                 idle: false,
-                title: 'Due',
+                title: args[0].name,
                 template: 'components/modal/modal-edit.html',
                 buttons: [{
                   classes: 'btn-success',
@@ -167,6 +176,9 @@ angular.module('due2App')
 
             editModal.result.then(function(event) {
               cb.apply(event, args);
+              resetModalState();
+            }, function() {
+              resetModalState();
             });
           };
         }

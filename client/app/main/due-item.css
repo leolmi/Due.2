@@ -4,15 +4,25 @@ due-item {
   display: inline-block;
   height: 100%;
   border: transparent 1px solid;
-  opacity: .4;
   max-width: 80px;
   overflow: hidden;
   min-width: 30px;
+  position: relative;
 }
-due-item:hover {
+due-item:not(.expired):not(.done) {
+  opacity: .4;
+}
+due-item.done {
+  opacity: .4;
+  background: url('../../assets/images/overlay.png') repeat;
+}
+
+due-item:hover,
+due-item.done:hover {
   opacity: 1;
   cursor: pointer;
 }
+
 
 .item-row-dues-in > due-item {
   color:#fff;
@@ -20,6 +30,17 @@ due-item:hover {
   border-color: #398439;
 }
 .item-row-dues-out > due-item {
+  color:#fff;
+  background-color: #d2322d;
+  border-color: #ac2925;
+}
+
+.due-in {
+  color:#fff;
+  background-color: #47a447;
+  border-color: #398439;
+}
+.due-out {
   color:#fff;
   background-color: #d2322d;
   border-color: #ac2925;
@@ -42,4 +63,12 @@ due-item > .value {
 .item-row.central due-item {
   opacity: 1;
   border-color: yellowgreen;
+}
+
+due-item > footer {
+  position: absolute;
+  bottom: 0;
+  text-align: right;
+  width: 100%;
+  padding-right: 10px;
 }

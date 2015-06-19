@@ -1,0 +1,20 @@
+.search-form {
+  text-align: center;
+  padding: 40px;
+}
+
+.search-form > .input-lg {
+  max-width: 400px;
+  display: inline-block;
+}
+
+.search-results {
+  margin: 50px 10px;
+  position: relative;
+}
+
+.search-results > due-item {
+  padding: 4px 6px 10px;
+  margin: 4px;
+  border-radius: 4px;
+}

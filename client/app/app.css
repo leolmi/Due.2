@@ -71,6 +71,14 @@ body {
   resize: vertical;
 }
 
+.blur {
+  -webkit-filter: blur(4px);
+  -moz-filter: blur(4px);
+  -ms-filter: blur(4px);
+  -o-filter: blur(4px);
+  filter: blur(4px);
+}
+
 .shadow {
   -webkit-box-shadow: 0 6px 21px rgba(0,0,0,0.7);
   -moz-box-shadow: 0 6px 21px rgba(0,0,0,0.7);

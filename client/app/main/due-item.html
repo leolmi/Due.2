@@ -1,2 +1,5 @@
-<div class="value">{{item.value}}</div>
+<div class="value"><small>€</small>{{item.data.realvalue.toFixed(2)}}</div>
 <div class="name">{{item.name}}</div>
+<footer>
+  <i class="fa" ng-class="{'fa-circle-o':item.data.state==0, 'fa-adjust':item.data.state==1, 'fa-check-circle':item.data.state==2}"></i>
+</footer>

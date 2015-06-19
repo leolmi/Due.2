@@ -21,8 +21,7 @@ angular.module('due2App')
       });
     };
   })
-  .controller('MainCtrl', ['$scope','$rootScope','$timeout','$window','$http','socket','Auth','$location','Modal','Util','Logger',
-    function ($scope,$rootScope,$timeout,$window,$http,socket,Auth,$location,Modal,Util,Logger) {
+  .controller('MainCtrl', ['$scope','$rootScope','$timeout','$window','$http','socket','Auth','$location','Modal','Util','Logger', function ($scope,$rootScope,$timeout,$window,$http,socket,Auth,$location,Modal,Util,Logger) {
     $scope.itemHeight = 60;
     $scope.visibleDues = [];
     var w = angular.element($window);
@@ -65,9 +64,9 @@ angular.module('due2App')
       cb = cb || angular.noop;
       $http.get('/api/dues/'+$rootScope.userdata.from+'/'+$rootScope.userdata.to)
         .success(function(dues) {
+          dues.forEach(function(due){ Util.injectData(due); });
           $scope.visibleDues = dues;
           socket.syncUpdates('due', $scope.visibleDues);
-          //Logger.info('Loaded on: '+$rootScope.userdata.central);
           cb();
         })
         .error(function(err){
@@ -127,6 +126,8 @@ angular.module('due2App')
         });
     });
 
+    $scope.context = $rootScope.userdata;
+
     $scope.newelement = function() {
       var item = {
         name: 'New Due',
@@ -141,6 +142,12 @@ angular.module('due2App')
       $scope.submenu = {
         title: 'Go to...',
         template: 'app/main/submenu-goto.html'
+      };
+    };
+
+    $scope.search = function() {
+      $scope.overpage = {
+        template: 'app/main/overpage-search.html'
       };
     };
 
@@ -163,6 +170,11 @@ angular.module('due2App')
     },{
       style: 'fa-map-marker',
       action: $scope.goto
+    },{
+      separator: true
+    },{
+      style: 'fa-search',
+      action: $scope.search
     }];
 
     $scope.$on('$destroy', function () {
@@ -172,7 +184,7 @@ angular.module('due2App')
 
     var modalEdit = Modal.confirm.edit(function(item) {
       $http.put('/api/dues/'+item._id, item)
-        .success(function(due) {
+        .success(function() {
           Logger.ok('Due "'+item.name+'" successfully updated!');
         })
         .error(function(err) {
@@ -182,8 +194,9 @@ angular.module('due2App')
 
     $scope.edit = function(item){ modalEdit(item); };
 
-    $scope.closeSubMenu = function() {
+    $scope.closeOverlay = function() {
       $scope.submenu = undefined;
+      $scope.overpage = undefined;
     };
 
     $scope.scrollData = function(value) {
@@ -196,19 +209,13 @@ angular.module('due2App')
       if (todate) {
         $rootScope.userdata.central = todate;
         loadDues();
-        $scope.closeSubMenu();
+        $scope.closeOverlay();
       }
     };
 
     loadDues();
   }]);
 
-//     $scope.addThing = function() {
-//       if($scope.newThing === '') { return; }
-//       $http.post('/api/things', { name: $scope.newThing });
-//       $scope.newThing = '';
-//     };
-//
 //     $scope.deleteThing = function(thing) {
 //       $http.delete('/api/things/' + thing._id);
 //     };

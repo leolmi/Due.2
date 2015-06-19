@@ -186,7 +186,8 @@
   overflow: hidden;
 }
 
-.vertical-submenu > .overlay {
+.vertical-submenu > .overlay,
+.over-page > .overlay{
   background-color: #0A0A16;
   bottom: 0;
   left: 0;
@@ -199,9 +200,26 @@
   transition-duration: 0.15s;
 }
 
-.vertical-submenu.active > .overlay {
+.vertical-submenu.active > .overlay,
+.over-page.active > .overlay {
   opacity: .6;
 }
+
+
+
+.over-page:not(.active) {
+  display: none;
+}
+.over-page > .over-page-content {
+  width: calc(100% - 45px);
+  left: 45px;
+  position: fixed;
+  height: 100%;
+  z-index: 210;
+}
+
+
+
 
 
 
