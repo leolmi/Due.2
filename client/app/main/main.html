@@ -3,17 +3,9 @@
     <i class="fa fa-fw due-fa-btn" ng-hide="b.separator" ng-repeat-start="b in buttons" ng-class="b.style" ng-click="b.action()"></i>
     <div class="separator" ng-show="b.separator" ng-repeat-end></div>
   </div>
-  <div class="vertical-submenu" ng-class="{'active':submenu}">
-    <div class="submenu">
-      <div class="title">{{submenu.title}}</div>
-      <div class="body">
-        <div ng-if="submenu.template" ng-include="submenu.template"></div>
-      </div>
-    </div>
-    <div class="overlay" ng-click="closeOverlay()"></div>
-  </div>
   <div class="over-page" ng-class="{'active':overpage}">
     <div class="over-page-content">
+      <i class="fa fa-3x fa-times aslink onright overlay-times" ng-click="closeOverlay()"></i>
       <div ng-if="overpage.template" ng-include="overpage.template"></div>
     </div>
     <div class="overlay" ng-click="closeOverlay()"></div>

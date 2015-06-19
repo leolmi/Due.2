@@ -33,8 +33,6 @@ angular.module('due2App')
       };
     }
 
-    var daysOfWeek = ['domenica','lunedì','martedì','mercoledì','giovedì','venerdì','sabato'];
-    var months = ['gennaio','febbraio','marzo','aprile','maggio','giugno','luglio','agosto','settembre','ottobre','novembre','dicembre'];
 
     function rebuildDays() {
       var days = [];
@@ -48,8 +46,8 @@ angular.module('due2App')
         days.push({
           N:d,
           year: date.getFullYear(),
-          month: months[date.getMonth()],
-          desc: daysOfWeek[wd],
+          month: Util.months[date.getMonth()],
+          desc: Util.daysOfWeek[wd],
           num: num,
           we: wd==0 || wd==6,
           today: (today==d),
@@ -106,11 +104,11 @@ angular.module('due2App')
     };
 
     $scope.profile = function() {
-      $location.path('/settings');
+      $scope.overpage = { template: 'app/main/overpage-settings.html' };
     };
 
     $scope.settings = function() {
-      $scope.submenu = { title: 'Options' };
+      $scope.overpage = { template: 'app/main/overpage-options.html' };
     };
 
 
@@ -139,16 +137,11 @@ angular.module('due2App')
     };
 
     $scope.goto = function() {
-      $scope.submenu = {
-        title: 'Go to...',
-        template: 'app/main/submenu-goto.html'
-      };
+      $scope.overpage = { template: 'app/main/overpage-goto.html' };
     };
 
     $scope.search = function() {
-      $scope.overpage = {
-        template: 'app/main/overpage-search.html'
-      };
+      $scope.overpage = { template: 'app/main/overpage-search.html' };
     };
 
     $scope.buttons = [{

@@ -48,10 +48,11 @@ due-item.done:hover {
 
 
 due-item > .name {
-  height: 20px;
+  height: 14px;
   overflow: inherit;
   text-overflow: ellipsis;
   font-size: 10px;
+  margin-bottom: 8px;
 }
 
 due-item > .value {

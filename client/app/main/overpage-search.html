@@ -1,6 +1,9 @@
-<div class="search-form" ng-controller="SearchCtrl">
+<div class="overpage overpage-search container" ng-controller="SearchCtrl">
   <h1>Search for dues...</h1>
-  <input type="text" class="form-control input-lg"  ng-model="searchtext">
+  <input type="text" class="form-control input-sm" ng-model="searchtext">
+  
+
+
   <div class="search-results">
     <due-item ng-repeat="i in alldues | filter: searchtext | filter: extendedFilter"
               ng-class="{'due-in': i.type=='in', 'due-out':i.type=='out', 'expired':i.data.expired}"

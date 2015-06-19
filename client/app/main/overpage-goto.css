@@ -1,0 +1,21 @@
+.overpage-goto {
+  padding: 50px;
+  max-width: 400px;
+}
+.overpage-goto > h1 {
+  margin-bottom: 30px;
+}
+
+
+.overpage-goto > i {
+  margin-top: 40px;
+  margin-left: calc(50% - 30px);
+}
+.overpage-goto .radio {
+  margin-bottom: 30px;
+}
+
+.overpage-goto .radio.active {
+  color: darkorange;
+  font-weight: bold;
+}

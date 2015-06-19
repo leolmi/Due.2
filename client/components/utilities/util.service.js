@@ -2,6 +2,8 @@
 
 angular.module('due2App')
   .factory('Util',[function(){
+    var daysOfWeek = ['domenica','lunedì','martedì','mercoledì','giovedì','venerdì','sabato'];
+    var months = ['gennaio','febbraio','marzo','aprile','maggio','giugno','luglio','agosto','settembre','ottobre','novembre','dicembre'];
 
     function toDays(d) {
       return Math.floor((((d.getTime() / 1000) / 60) / 60) / 24);
@@ -41,6 +43,8 @@ angular.module('due2App')
     }
 
     return {
+      daysOfWeek:daysOfWeek,
+      months:months,
       toDate: toDate,
       toDays: toDays,
       toDateStr: toDateStr,

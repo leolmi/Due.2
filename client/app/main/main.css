@@ -160,33 +160,10 @@
   margin-top: -4px;
 }
 
-.vertical-submenu:not(.active) {
-  display: none;
+.over-page.active {
+  overflow: auto;
 }
 
-.vertical-submenu > .submenu {
-  width: 200px;
-  left: 45px;
-  position: fixed;
-  height: 100%;
-  z-index: 210;
-  background-color: #333;
-}
-
-.vertical-submenu .title {
-  padding: 6px;
-  background-color: yellowgreen;
-  color: #222;
-  font-size: 10px;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-.vertical-submenu .body {
-  padding: 6px;
-  overflow: hidden;
-}
-
-.vertical-submenu > .overlay,
 .over-page > .overlay{
   background-color: #0A0A16;
   bottom: 0;
@@ -200,7 +177,6 @@
   transition-duration: 0.15s;
 }
 
-.vertical-submenu.active > .overlay,
 .over-page.active > .overlay {
   opacity: .6;
 }
@@ -238,4 +214,13 @@
 .item-row-dues-out {
   left: 0;
   text-align: left;
+}
+
+
+.overlay-times {
+  margin: 20px;
+  opacity: .2;
+}
+.overlay-times:hover {
+  opacity: 1;
 }
