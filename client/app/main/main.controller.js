@@ -148,26 +148,21 @@ angular.module('due2App')
       style: 'fa-power-off',
       action: $scope.logout
     },{
-      separator: true
-    },{
-      style: 'fa-user',
+      style: 'fa-cog',
       action: $scope.profile
     },{
-      style: 'fa-cog',
-      action: $scope.settings
-    },{
       separator: true
     },{
-      style: 'fa-bookmark-o',
-      action: $scope.newelement
+      style: 'fa-search',
+      action: $scope.search
     },{
       style: 'fa-map-marker',
       action: $scope.goto
     },{
       separator: true
     },{
-      style: 'fa-search',
-      action: $scope.search
+      style: 'fa-bookmark-o',
+      action: $scope.newelement
     }];
 
     $scope.$on('$destroy', function () {

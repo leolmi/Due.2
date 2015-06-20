@@ -1,28 +1,39 @@
 <div class="overpage overpage-search container" ng-controller="SearchCtrl">
-  <h1>Search for dues...</h1>
-  <input type="text" class="form-control input-sm" ng-model="searchtext">
-  <div class="options">
-    <div>
-      <label>
-        <input type="checkbox" ng-model="expired"> Expired
-      </label>
+  <div class="header">
+    <h1>Search for dues...</h1>
+    <input type="text" class="form-control input-sm" ng-model="searchtext">
+    <div class="options">
+      <div>
+        <label>
+          <input type="checkbox" ng-model="expired"> Expired
+        </label>
+      </div>
+      <div>
+        <label>
+          <input type="checkbox" ng-model="state"> Undone
+        </label>
+      </div>
+      <div>
+        <label>
+          <input type="checkbox" ng-model="details"> Details
+        </label>
+      </div>
     </div>
-    <div>
-      <label>
-        <input type="checkbox" ng-model="state"> Undone
-      </label>
-    </div>
-    <div>
-      <label>
-        <input type="checkbox" ng-model="details"> Details
-      </label>
-    </div>
+    <div class="counter">founded <strong>{{res.length}}</strong> dues.</div>
   </div>
   <div class="search-results">
-    <div class="due-item-detail" ng-repeat="i in alldues | filter: searchtext | options:state:expired">
+    <div class="due-item-detail" ng-class="{'visible':details}"
+         ng-repeat="i in res=(alldues | filter: searchtext | options:state:expired) | orderBy:'date'">
       <due-item ng-class="{'due-in': i.type=='in', 'due-out':i.type=='out', 'expired':i.data.expired}"
               ng-model="i" ng-click="edit(i)" title="{{i.info}}"></due-item>
+      <div class="due-item-info" ng-show="details">
+        <i class="fa" ng-class="{'fa-exclamation-circle':i.data.expired && i.data.state!=2, 'fa-clock-o':!i.data.expired}"></i>
+        <p class="info-warning" ng-show="i.data.expired && i.data.state!=2">Expired <small>by <span class="badge">{{i.data.delta}}</span> days!</small></p>
+        <p class="info-warning" ng-show="!i.data.expired">Missing <small>{{i.data.delta}} days</small></p>
+        <p class="info-warning" ng-show="i.data.state==2">Done</p>
+      </div>
     </div>
   </div>
+
 </div>
 

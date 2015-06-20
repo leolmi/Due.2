@@ -1,10 +1,15 @@
 .overpage-search {
   text-align: center;
   padding: 50px;
-  max-width: 700px;
 }
 
-.overpage-search > input {
+.overpage-search > .header {
+  max-width: 700px;
+  display: inline;
+  position: relative;
+}
+
+.overpage-search input {
   max-width: 400px;
   display: inline-block;
 }
@@ -21,12 +26,49 @@
 }
 .due-item-detail {
   display: inline-block;
+  position: relative;
 }
 
-.overpage-search > .options {
+.due-item-detail.visible {
+  display: inline-block;
+  width: 240px;
+  background-color: #222;
+  border-radius: 6px;
+  margin: 4px;
+  text-align: left;
+  padding: 4px 0 0 5px;
+}
+
+.overpage-search .options {
   padding: 20px 0 0;
 }
-.overpage-search > .options > div {
+.overpage-search .options > div {
   display: inline-block;
   margin: 0 10px;
+}
+
+.counter {
+  font-size: 12px;
+  color: darkorange;
+  margin-top: 10px;
+}
+
+.due-item-info {
+  position: absolute;
+  top: 10px;
+  left: 100px;
+  width: calc(100% - 120px);
+  height: calc(100% - 20px);
+  font-size: 12px;
+}
+
+.due-item-info > i {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  font-size: 30px;
+}
+.due-item-info .badge {
+  background-color: cornflowerblue;
+  color: #222;
 }
