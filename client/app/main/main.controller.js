@@ -100,6 +100,8 @@ angular.module('due2App')
 
     $scope.logout = function() {
       Auth.logout();
+      $rootScope.userdata = undefined;
+      $rootScope.user = undefined;
       $location.path('/login');
     };
 
