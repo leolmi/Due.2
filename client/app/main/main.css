@@ -221,3 +221,7 @@
 .overlay-times:hover {
   opacity: 1;
 }
+
+.overpage label {
+  font-weight: normal;
+}

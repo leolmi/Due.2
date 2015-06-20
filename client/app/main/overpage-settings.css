@@ -1,0 +1,8 @@
+.overpage-settings {
+  padding: 50px;
+}
+
+.overpage-settings input {
+  max-width: 400px;
+  /*display: inline-block;*/
+}
