@@ -30,6 +30,7 @@ angular.module('due2App')
       else if (item.automatic && item.data.expired){
         state = 2;
       }
+      item.data.done = (state==2);
       item.data.state = state;
     }
 

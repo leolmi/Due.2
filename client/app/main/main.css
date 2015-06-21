@@ -69,7 +69,6 @@
   background-color: yellowgreen;
   height: 80px;
   color: #222;
-  overflow: hidden;
   z-index: 60;
   -webkit-box-shadow: 0 6px 21px rgba(0,0,0,0.7);
   -moz-box-shadow: 0 6px 21px rgba(0,0,0,0.7);

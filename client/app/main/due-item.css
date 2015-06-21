@@ -24,6 +24,19 @@ due-item.done:hover {
 }
 
 
+.item-delete {
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: #222;
+  opacity: .1;
+  font-size: 20px;
+}
+.item-delete:hover {
+  opacity: .9;
+}
+
+
 .item-row-dues-in > due-item {
   color:#fff;
   background-color: #47a447;

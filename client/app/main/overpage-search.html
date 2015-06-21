@@ -23,7 +23,7 @@
   </div>
   <div class="search-results">
     <div class="due-item-detail" ng-class="{'visible':details}"
-         ng-repeat="i in res=(alldues | filter: searchtext | options:state:expired) | orderBy:'date'">
+         ng-repeat="i in res=(cache.items | filter: searchtext | options:state:expired) | orderBy:'date'">
       <due-item ng-class="{'due-in': i.type=='in', 'due-out':i.type=='out', 'expired':i.data.expired}"
               ng-model="i" ng-click="edit(i)" title="{{i.info}}"></due-item>
       <div class="due-item-info" ng-show="details">

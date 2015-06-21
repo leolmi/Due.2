@@ -21,7 +21,7 @@ angular.module('due2App')
       });
     };
   })
-  .controller('MainCtrl', ['$scope','$rootScope','$timeout','$window','$http','socket','Auth','$location','Modal','Util','Logger', function ($scope,$rootScope,$timeout,$window,$http,socket,Auth,$location,Modal,Util,Logger) {
+  .controller('MainCtrl', ['$scope','$rootScope','Cache','$timeout','$window','$http','socket','Auth','$location','Modal','Util','Logger', function ($scope,$rootScope,Cache,$timeout,$window,$http,socket,Auth,$location,Modal,Util,Logger) {
     $scope.itemHeight = 60;
     $scope.visibleDues = [];
     var w = angular.element($window);
@@ -57,52 +57,53 @@ angular.module('due2App')
       $scope.days = days;
     }
 
-    // Carica gli elementi
-    function loadDuesBase(cb) {
-      cb = cb || angular.noop;
-      $http.get('/api/dues/'+$rootScope.userdata.from+'/'+$rootScope.userdata.to)
-        .success(function(dues) {
-          dues.forEach(function(due){ Util.injectData(due); });
-          $scope.visibleDues = dues;
-          socket.syncUpdates('due', $scope.visibleDues);
-          cb();
-        })
-        .error(function(err){
-          cb();
-          Logger.error('Error loading dues!', err);
-        });
-    }
+    //// Carica gli elementi
+    //function loadDuesBase(cb) {
+    //  cb = cb || angular.noop;
+    //  $http.get('/api/dues/'+$rootScope.userdata.from+'/'+$rootScope.userdata.to)
+    //    .success(function(dues) {
+    //      dues.forEach(function(due){ Util.injectData(due); });
+    //      $scope.visibleDues = dues;
+    //      socket.syncUpdates('due', $scope.visibleDues);
+    //      cb();
+    //    })
+    //    .error(function(err){
+    //      cb();
+    //      Logger.error('Error loading dues!', err);
+    //    });
+    //}
 
-    // Carica gli elementi
-    function loadDues(cb) {
-      var offset = 0;
-      var hN2 = Math.floor((w.height() / $scope.itemHeight)/2);
-      $rootScope.userdata.from = $rootScope.userdata.central-hN2+offset;
-      $rootScope.userdata.to = $rootScope.userdata.central+hN2+offset;
-      rebuildDays();
-
-      if ($scope.loading_prm)
-        $timeout.cancel($scope.loading_prm);
-      $scope.loading_prm = $timeout(function() {
-        $scope.loading = true;
-        loadDuesBase(cb);
-      }, 300);
-
-      $scope.loading_prm.then(
-        function() {
-          $scope.loading = false;
-        },
-        function() {
-          $scope.loading = false;
-        }
-      );
-    }
+    //// Carica gli elementi
+    //function loadDues(cb) {
+    //  var offset = 0;
+    //  var hN2 = Math.floor((w.height() / $scope.itemHeight)/2);
+    //  $rootScope.userdata.from = $rootScope.userdata.central-hN2+offset;
+    //  $rootScope.userdata.to = $rootScope.userdata.central+hN2+offset;
+    //  rebuildDays();
+    //
+    //  if ($scope.loading_prm)
+    //    $timeout.cancel($scope.loading_prm);
+    //  $scope.loading_prm = $timeout(function() {
+    //    $scope.loading = true;
+    //    loadDuesBase(cb);
+    //  }, 300);
+    //
+    //  $scope.loading_prm.then(
+    //    function() {
+    //      $scope.loading = false;
+    //    },
+    //    function() {
+    //      $scope.loading = false;
+    //    }
+    //  );
+    //}
 
     $scope.logout = function() {
       Auth.logout();
       $rootScope.userdata = undefined;
       $rootScope.user = undefined;
       $location.path('/login');
+      Cache.clear();
     };
 
     $scope.profile = function() {
@@ -168,8 +169,9 @@ angular.module('due2App')
     }];
 
     $scope.$on('$destroy', function () {
-      socket.unsyncUpdates('due');
-      $timeout.cancel($scope.loading_prm);
+    //  socket.unsyncUpdates('due');
+    //  $timeout.cancel($scope.loading_prm);
+      Cache.clear();
     });
 
     var modalEdit = Modal.confirm.edit(function(item) {
@@ -203,7 +205,39 @@ angular.module('due2App')
       }
     };
 
-    loadDues();
+    var modalDelete = Modal.confirm.ask(function(item) {
+      $http.delete('/api/dues/' + item._id)
+        .success(function() {
+          Logger.ok('Due successfully deleted!');
+        })
+        .error(function(err){
+          Logger.error('Error during due deletion!', err);
+        });
+    });
+
+    $scope.delete = function(item) {
+      var opt = Modal.confirm.getAskOptions(Modal.MODAL_DELETE, item.name);
+      modalDelete(opt, item);
+    };
+
+    $scope.cache = Cache.data;
+
+    function loadDues() {
+      var offset = 0;
+      var hN2 = Math.floor((w.height() / $scope.itemHeight) / 2);
+      $rootScope.userdata.from = $rootScope.userdata.central - hN2 + offset;
+      $rootScope.userdata.to = $rootScope.userdata.central + hN2 + offset;
+      rebuildDays();
+    }
+
+    function Init() {
+      Cache.load();
+      loadDues();
+    }
+
+
+    Init();
+    //loadDues();
   }]);
 
 //     $scope.deleteThing = function(thing) {

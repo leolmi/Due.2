@@ -5,27 +5,22 @@
 
 angular.module('due2App')
   .filter('options', [function() {
-    return function(items, state, expired) {
+    return function(items, state, expired, info) {
       var filtered = [];
+      info = info || {};
+      info.tot = info.tot || {};
       if (items && items.length>0) {
         items.forEach(function (i) {
-          if ((!state || i.data.state != 2) && (!expired || i.data.expired))
+          if ((!state || i.data.state != 2) && (!expired || i.data.expired)) {
+            info.tot[i.type] += i.data.realvalue;
             filtered.push(i);
+          }
         });
       }
       return filtered;
     }
   }])
-  .controller('SearchCtrl', ['$scope','$http','Util','Logger', function($scope,$http,Util,Logger) {
+  .controller('SearchCtrl', ['$scope','$http','Cache','Util','Logger', function($scope,$http,Cache,Util,Logger) {
     $scope.searchtext = '';
-
-    $http.get('/api/dues/0/99999999999')
-      .success(function(dues) {
-        dues.forEach(function(due){ Util.injectData(due); });
-        $scope.alldues = dues;
-      })
-      .error(function(err){
-        Logger.error('Error loading dues!', err);
-      });
-
+    $scope.cache = Cache.data;
   }]);

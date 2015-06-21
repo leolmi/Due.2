@@ -13,8 +13,9 @@
   <div class="scroller" ng-mouse-wheel="scrollData" ng-class="{'blur':overpage || submenu || context.ismodal}">
     <div class="middle-line"></div>
     <div class="item-row center-text" ng-class="{'week-end':d.we, 'central':d.central, 'today':d.today, 'last':d.last, 'first':d.num==1}" ng-repeat="d in days">
+      <item-summary ng-show="d.central" type="'out'"></item-summary>
       <div class="item-row-element item-row-dues item-row-dues-out">
-        <due-item ng-repeat="i in visibleDues | filter: { date:d.N, type:'out' }"
+        <due-item ng-repeat="i in cache.items | filter: { date:d.N, type:'out' }"
                   ng-class="{'done':i.data.state==2, 'expired':i.data.expired}"
                   ng-model="i" ng-click="edit(i)" title="{{i.info}}"></due-item>
       </div>
@@ -25,7 +26,7 @@
         <div class="day-month day-month-last" ng-show="d.last || d.central">{{d.central ? d.year : d.month}}</div>
       </div>
       <div class="item-row-element item-row-dues item-row-dues-in">
-        <due-item ng-repeat="i in visibleDues | filter: { date:d.N, type:'in' }"
+        <due-item ng-repeat="i in cache.items | filter: { date:d.N, type:'in' }"
                   ng-class="{'done':i.data.state==2, 'expired':i.data.expired}"
                   ng-model="i" ng-click="edit(i)" title="{{i.info}}"></due-item>
       </div>
