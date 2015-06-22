@@ -1,5 +1,5 @@
 <i class="item-button item-delete fa fa-times" ng-click="delete($event)"></i>
-<i class="item-button item-handle fa fa-pencil-square" ng-click="handle($event)"></i>
+<i class="item-button item-handle fa fa-pencil-square" ng-hide="item.data.done" ng-click="handle($event)"></i>
 <div class="value"><small>€</small>{{item.data.realvalue.toFixed(2)}}</div>
 <div class="name">{{item.name}}</div>
 <footer>

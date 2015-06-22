@@ -26,6 +26,7 @@ var DueSchema = new Schema({
   info: String,                 //= desc 2
   date: Number,                 //= scadenza
   value: Number,                //= valore
+  badgets: [String],            //= badgets di cui fa parte
   state: [StateSchema],         //= stati del pagamento
   reminds: [ReminderSchema],    //= reminder
   done: Boolean,                //= pagato/riscosso

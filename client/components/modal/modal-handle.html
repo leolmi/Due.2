@@ -1,21 +1,14 @@
-<p ng-show="modal.desc">{{modal.item.name}}</p>
-<div class="form-group form-group-sm">
+<div ng-controller="ModalHandleCtrl">
+  <label>Date</label>
+  <input id="timepicker-handle" type="date" class="form-control input-sm" datepicker-popup ng-model="modal.state.real_date"
+         is-open="opened" datepicker-options="dateOptions" close-text="Close" ng-change="syncdate()"/>
+  <label>Value</label>
   <div class="input-group">
     <div class="input-group-addon">€</div>
-    <input type="text" class="form-control" id="first-control" placeholder="importo" data-ng-model="modal.state.value" autofocus>
+    <input type="text" class="form-control input-sm" id="first-control" placeholder="value" data-ng-model="modal.state.value" autofocus>
   </div>
-</div>
-<div class="form-group form-group-sm">
-  <div class="input-group">
-    <input type="text" class="form-control" datepicker-popup="{{'dd/MM/yyyy'}}" ng-model="modal.state.date" is-open="modal.opened" ng-required="true" close-text="Chiudi" />
-    <span class="input-group-btn">
-      <button type="button" class="btn btn-default" ng-click="modal.openDate($event)"><i class="fa fa-calendar"></i></button>
-    </span>
-  </div>
-</div>
-<div class="form-group form-group-sm">
-  <input type="text" class="form-control" placeholder="modalità" data-ng-model="modal.state.type">
-</div>
-<div class="form-group form-group-sm">
-  <input type="text" class="form-control" placeholder="descrizione" data-ng-model="modal.state.desc">
+  <label>Type</label>
+  <input type="text" class="form-control input-sm" placeholder="type" data-ng-model="modal.state.type">
+  <label>Description</label>
+  <input type="text" class="form-control input-sm" placeholder="description" data-ng-model="modal.state.desc">
 </div>
