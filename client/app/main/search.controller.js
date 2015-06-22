@@ -18,11 +18,12 @@ angular.module('due2App')
       if (items && items.length>0) {
         items.forEach(function (i) {
           if ((!state || i.data.state != 2) && (!expired || i.data.expired)) {
-            info.tot[i.type] += i.data.realvalue;
+            info.tot[i.type] = info.tot[i.type] ? info.tot[i.type] + i.data.realvalue : i.data.realvalue;
             info.count[i.type] = info.count[i.type] ? info.count[i.type]+1 : 1;
             filtered.push(i);
           }
         });
+        info.count.tot = filtered.length;
       }
       return filtered;
     }

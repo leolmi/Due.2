@@ -16,7 +16,7 @@ angular.module('due2App')
     function load(cb) {
       cb = cb || angular.noop;
       if (_idle) {
-        cb()
+        cb();
         return;
       }
       _idle = true;
@@ -26,10 +26,12 @@ angular.module('due2App')
           _cache.items = dues;
           socket.syncUpdates('due', _cache.items);
           _idle = false;
+          cb();
         })
         .error(function(err){
           _idle = false;
           Logger.error('Error loading dues!', err);
+          cb();
         });
     }
 

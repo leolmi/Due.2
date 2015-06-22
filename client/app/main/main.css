@@ -224,3 +224,48 @@
 .overpage label {
   font-weight: normal;
 }
+
+
+
+
+.item-alert {
+  position: absolute;
+  top: -30px;
+  left: -24px;
+  min-width: 30px;
+  height: 30px;
+  background-color: crimson;
+  border-radius: 20px;
+  overflow: hidden;
+  font-size: 21px;
+}
+.item-alert:hover {
+  color: #000;
+}
+
+.item-alert-detail {
+  top: -10px;
+  position: absolute;
+  background-color: crimson;
+  border-radius: 6px;
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  font-size: 10px;
+  text-align: left;
+}
+
+.item-alert-detail.visible {
+  height: auto;
+  width: 100px;
+  padding: 10px;
+}
+.item-alert-detail .badge {
+  background-color: #222;
+  color: crimson;
+  font-size: 10px;
+}
+
+/*.item-alert-detail > div > *{*/
+  /*display: inline-block;*/
+/*}*/

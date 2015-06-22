@@ -13,7 +13,7 @@
   <div class="scroller" ng-mouse-wheel="scrollData" ng-class="{'blur':overpage || submenu || context.ismodal}">
     <div class="middle-line"></div>
     <div class="item-row center-text" ng-class="{'week-end':d.we, 'central':d.central, 'today':d.today, 'last':d.last, 'first':d.num==1}" ng-repeat="d in days">
-      <item-summary ng-show="d.central" type="'out'"></item-summary>
+      <!--<item-summary ng-show="d.central" type="'out'"></item-summary>-->
       <div class="item-row-element item-row-dues item-row-dues-out">
         <due-item ng-repeat="i in cache.items | filter: { date:d.N, type:'out' }"
                   ng-class="{'done':i.data.state==2, 'expired':i.data.expired}"
@@ -24,6 +24,13 @@
         <div class="day-desc">{{d.desc}}</div>
         <div class="day-month day-month-first" ng-show="d.num==1 || d.central">{{d.month}}</div>
         <div class="day-month day-month-last" ng-show="d.last || d.central">{{d.central ? d.year : d.month}}</div>
+        <div class="item-alert aslink shadow" ng-mouseover="showdetails=true" ng-mouseleave="showdetails=false"
+             ng-show="d.central && summary && summary.count.tot>0" ng-click="details()"> {{summary.count.tot}}</div>
+        <div class="item-alert-detail shadow" ng-show="d.central && summary && summary.count.tot>0"
+             ng-class="{'visible':showdetails}">
+          <div ng-show="summary.count.out>0"><i class="fa fa-fw fa-sign-out"></i><span class="badge">{{summary.count.out}}</span> <small>€</small>{{summary.tot.out}}</div>
+          <div ng-show="summary.count.in>0"><i class="fa fa-fw fa-sign-in"></i><span class="badge">{{summary.count.in}}</span> <small>€</small>{{summary.tot.in}}</div>
+        </div>
       </div>
       <div class="item-row-element item-row-dues item-row-dues-in">
         <due-item ng-repeat="i in cache.items | filter: { date:d.N, type:'in' }"

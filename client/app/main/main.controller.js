@@ -21,12 +21,14 @@ angular.module('due2App')
       });
     };
   })
-  .controller('MainCtrl', ['$scope','$rootScope','Cache','$timeout','$window','$http','socket','Auth','$location','Modal','Util','Logger', function ($scope,$rootScope,Cache,$timeout,$window,$http,socket,Auth,$location,Modal,Util,Logger) {
+  .controller('MainCtrl', ['$scope','$rootScope','Cache','$timeout','$window','$http','$filter','socket','Auth','$location','Modal','Util','Logger',
+    function ($scope,$rootScope,Cache,$timeout,$window,$http,$filter,socket,Auth,$location,Modal,Util,Logger) {
     $scope.itemHeight = 60;
     $scope.visibleDues = [];
     var w = angular.element($window);
     w.bind('resize', function () { loadDues(); });
     $scope.context = $rootScope.userdata;
+    $scope.showdetails = false;
 
     if (!$rootScope.userdata) {
       $rootScope.userdata = {
@@ -236,8 +238,16 @@ angular.module('due2App')
       rebuildDays();
     }
 
+    $scope.details = function() {
+      $scope.search({undone: true, expired: true, details: true});
+    };
+
     function Init() {
-      Cache.load();
+      Cache.load(function() {
+        var s = {};
+        $filter('options')(Cache.data.items, true, true, s);
+        $scope.summary = s;
+      });
       loadDues();
     }
 
