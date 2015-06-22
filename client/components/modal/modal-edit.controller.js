@@ -12,6 +12,13 @@ angular.module('due2App')
       formatYear: 'yy',
       startingDay: 1
     };
+    //$scope.modal.buttons.push({
+    //  classes: 'btn-primary onleft',
+    //  text: 'Handle',
+    //  click: function() {
+    //  }
+    //})
+
 		$scope.open = function($event) {
       $event.preventDefault();
       $event.stopPropagation();

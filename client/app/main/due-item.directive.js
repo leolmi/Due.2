@@ -7,11 +7,20 @@ angular.module('due2App')
       scope: { item: '=ngModel' },
       templateUrl: 'app/main/due-item.html',
       link: function (scope, elm, atr) {
-				scope.delete = function($event) {
-          $event.preventDefault();
-          $event.stopPropagation();
-          scope.$parent.delete(scope.item);
+        function stopEvent(e) {
+          e.preventDefault();
+          e.stopPropagation();
         }
+
+				scope.delete = function(e) {
+          stopEvent(e);
+          scope.$parent.delete(scope.item);
+        };
+
+        scope.handle = function(e) {
+          stopEvent(e);
+          scope.$parent.handle(scope.item);
+        };
 			}
 		};
 	}]);

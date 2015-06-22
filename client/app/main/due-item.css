@@ -23,16 +23,23 @@ due-item.done:hover {
   cursor: pointer;
 }
 
-
-.item-delete {
+.item-button {
   position: absolute;
-  right: 0;
-  top: 0;
   color: #222;
   opacity: .1;
   font-size: 20px;
+  z-index: 10;
 }
-.item-delete:hover {
+.item-delete {
+  right: 0;
+  top: 0;
+}
+.item-handle {
+  left: 0;
+  bottom: 0;
+}
+
+.item-button:hover {
   opacity: .9;
 }
 

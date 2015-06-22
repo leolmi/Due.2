@@ -28,8 +28,12 @@
              ng-show="d.central && summary && summary.count.tot>0" ng-click="details()"> {{summary.count.tot}}</div>
         <div class="item-alert-detail shadow" ng-show="d.central && summary && summary.count.tot>0"
              ng-class="{'visible':showdetails}">
-          <div ng-show="summary.count.out>0"><i class="fa fa-fw fa-sign-out"></i><span class="badge">{{summary.count.out}}</span> <small>€</small>{{summary.tot.out}}</div>
-          <div ng-show="summary.count.in>0"><i class="fa fa-fw fa-sign-in"></i><span class="badge">{{summary.count.in}}</span> <small>€</small>{{summary.tot.in}}</div>
+          <div ng-show="summary.count.out>0">
+            <i class="fa fa-fw fa-sign-out"></i>{{summary.count.out}}: <small>€</small>{{summary.tot.out.toFixed(2)}}
+          </div>
+          <div ng-show="summary.count.in>0">
+            <i class="fa fa-fw fa-sign-in"></i>{{summary.count.in}}: <small>€</small>{{summary.tot.in.toFixed(2)}}
+          </div>
         </div>
       </div>
       <div class="item-row-element item-row-dues item-row-dues-in">

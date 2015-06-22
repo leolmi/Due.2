@@ -8,6 +8,7 @@
 	position: relative;
 	border: #ccc 1px solid;
 	border-radius: 4px;
+  margin-top: 2px;
 }
 .item-state > div {
 	display: inline-block;
@@ -30,6 +31,7 @@
 
 .item-state > .content {
 	text-overflow: ellipsis;
+  min-height: 25px;
 }
 
 .item-state > .value {

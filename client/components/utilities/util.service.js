@@ -43,12 +43,18 @@ angular.module('due2App')
       injectState(item);
     }
 
+    function formatN(n,d) {
+      d = d || 2;
+      return n.toFixed(d);
+    }
+
     return {
       daysOfWeek:daysOfWeek,
       months:months,
       toDate: toDate,
       toDays: toDays,
       toDateStr: toDateStr,
+      formatN:formatN,
       injectData: injectData
     }
   }]);

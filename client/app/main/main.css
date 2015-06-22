@@ -169,7 +169,7 @@
   top: 0;
   z-index: 200;
   transition-property: opacity;
-  transition-duration: 0.15s;
+  transition-duration: .15s;
 }
 
 .over-page.active > .overlay {
@@ -251,7 +251,7 @@
   height: 0;
   width: 0;
   overflow: hidden;
-  font-size: 10px;
+  font-size: 11px;
   text-align: left;
 }
 
@@ -260,12 +260,3 @@
   width: 100px;
   padding: 10px;
 }
-.item-alert-detail .badge {
-  background-color: #222;
-  color: crimson;
-  font-size: 10px;
-}
-
-/*.item-alert-detail > div > *{*/
-  /*display: inline-block;*/
-/*}*/

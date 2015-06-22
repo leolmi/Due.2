@@ -27,15 +27,16 @@ angular.module('due2App')
     $scope.visibleDues = [];
     var w = angular.element($window);
     w.bind('resize', function () { loadDues(); });
-    $scope.context = $rootScope.userdata;
     $scope.showdetails = false;
+    $scope.cache = Cache.data;
+
 
     if (!$rootScope.userdata) {
       $rootScope.userdata = {
         central: Util.toDays(new Date())
       };
     }
-
+    $scope.context = $rootScope.userdata;
 
     function rebuildDays() {
       var days = [];
@@ -182,14 +183,19 @@ angular.module('due2App')
       Cache.clear();
     });
 
-    var modalEdit = Modal.confirm.edit(function(item) {
+    function updateItem(item) {
       $http.put('/api/dues/'+item._id, item)
         .success(function() {
           Logger.ok('Due "'+item.name+'" successfully updated!');
+          //Cache.refresh(item);
         })
         .error(function(err) {
           Logger.error("Error creating new due", JSON.stringify(err));
         });
+    }
+
+    var modalEdit = Modal.confirm.edit(function(item) {
+      updateItem(item);
     });
 
     $scope.edit = function(item){ modalEdit(item); };
@@ -228,7 +234,18 @@ angular.module('due2App')
       modalDelete(opt, item);
     };
 
-    $scope.cache = Cache.data;
+    var modalHandle = Modal.confirm.handle(function(item, state) {
+      item.state.push(state);
+      updateItem(item);
+    });
+
+    $scope.handle = function(item) {
+      var state = {
+        date: Util.toDays(new Date()),
+        value: item.data.realvalue.toFixed(2)
+      };
+      modalHandle(item, state);
+    };
 
     function loadDues() {
       var offset = 0;

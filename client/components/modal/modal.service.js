@@ -181,8 +181,54 @@ angular.module('due2App')
               resetModalState();
             });
           };
-        }
+        },
 
+        /**
+         * Aggiunge il pagamento
+         * @param add
+         */
+        handle: function(cb) {
+          cb = cb || angular.noop;
+
+          /**
+           * Apre il form modale
+           * @param thing
+           */
+          return function() {
+            var args = Array.prototype.slice.call(arguments),
+              handleModal;
+
+            handleModal = openModal({
+              modal: {
+                dismissable: true,
+                title: args[0].name,
+                state: args[1],
+                template: 'components/modal/modal-handle.html',
+                buttons: [{
+                  classes: 'btn-success',
+                  text: 'OK',
+                  click: function(e) { handleModal.close(e); }
+                }, {
+                  classes: 'btn-warning',
+                  text: 'Cancel',
+                  click: function(e) { handleModal.dismiss(e); }
+                }],
+                openDate: function(event) {
+                  event.preventDefault();
+                  event.stopPropagation();
+                  this.opened = true;
+                }
+              }
+            }, 'modal-edit');
+
+            handleModal.result.then(function(event) {
+              cb.apply(event, args);
+              resetModalState();
+            }, function() {
+              resetModalState();
+            });
+          };
+        }
       }
     };
   }]);

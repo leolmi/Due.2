@@ -32,11 +32,9 @@ angular.module('due2App')
     $scope.searchtext = '';
     $scope.cache = Cache.data;
     var page = $scope.$parent.overpage;
-    if (page.params){
-      $scope.expired = page.params.expired==true ? true : false;
-      $scope.undone = page.params.undone==true ? true : false;
-      $scope.details = page.params.details==true ? true : false;
-    }
+    $scope.expired = (page.params && page.params.expired==true) ? true : false;
+    $scope.undone = (page.params && page.params.undone==true) ? true : false;
+    $scope.details = (page.params && page.params.details==true) ? true : false;
     $scope.getDateStr = function(i) {
       return Util.toDateStr(i.date);
     };
