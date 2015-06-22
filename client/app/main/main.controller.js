@@ -26,6 +26,7 @@ angular.module('due2App')
     $scope.visibleDues = [];
     var w = angular.element($window);
     w.bind('resize', function () { loadDues(); });
+    $scope.context = $rootScope.userdata;
 
     if (!$rootScope.userdata) {
       $rootScope.userdata = {
@@ -106,12 +107,19 @@ angular.module('due2App')
       Cache.clear();
     };
 
+    function openPage(template, params){
+      $scope.overpage = {
+        template: template,
+        params: params
+      };
+    }
+
     $scope.profile = function() {
-      $scope.overpage = { template: 'app/main/overpage-settings.html' };
+      openPage('app/main/overpage-settings.html');
     };
 
     $scope.settings = function() {
-      $scope.overpage = { template: 'app/main/overpage-options.html' };
+      openPage('app/main/overpage-options.html');
     };
 
 
@@ -127,8 +135,6 @@ angular.module('due2App')
         });
     });
 
-    $scope.context = $rootScope.userdata;
-
     $scope.newelement = function() {
       var item = {
         name: 'New Due',
@@ -140,11 +146,11 @@ angular.module('due2App')
     };
 
     $scope.goto = function() {
-      $scope.overpage = { template: 'app/main/overpage-goto.html' };
+      openPage('app/main/overpage-goto.html');
     };
 
-    $scope.search = function() {
-      $scope.overpage = { template: 'app/main/overpage-search.html' };
+    $scope.search = function(params) {
+      openPage('app/main/overpage-search.html', params);
     };
 
     $scope.buttons = [{
@@ -239,7 +245,3 @@ angular.module('due2App')
     Init();
     //loadDues();
   }]);
-
-//     $scope.deleteThing = function(thing) {
-//       $http.delete('/api/things/' + thing._id);
-//     };

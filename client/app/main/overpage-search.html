@@ -3,27 +3,15 @@
     <h1>Search for dues...</h1>
     <input type="text" class="form-control input-sm" ng-model="searchtext">
     <div class="options">
-      <div>
-        <label>
-          <input type="checkbox" ng-model="expired"> Expired
-        </label>
-      </div>
-      <div>
-        <label>
-          <input type="checkbox" ng-model="state"> Undone
-        </label>
-      </div>
-      <div>
-        <label>
-          <input type="checkbox" ng-model="details"> Details
-        </label>
-      </div>
+      <div> <label> <input type="checkbox" ng-model="expired"> Expired </label> </div>
+      <div> <label> <input type="checkbox" ng-model="undone"> Undone </label> </div>
+      <div> <label> <input type="checkbox" ng-model="details"> Details </label> </div>
     </div>
     <div class="counter">founded <strong>{{res.length}}</strong> dues.</div>
   </div>
   <div class="search-results">
     <div class="due-item-detail" ng-class="{'visible':details}"
-         ng-repeat="i in res=(cache.items | filter: searchtext | options:state:expired) | orderBy:'date'">
+         ng-repeat="i in res=(cache.items | filter: searchtext | options:undone:expired) | orderBy:'date'">
       <due-item ng-class="{'due-in': i.type=='in', 'due-out':i.type=='out', 'expired':i.data.expired}"
               ng-model="i" ng-click="edit(i)" title="{{i.info}}"></due-item>
       <div class="due-item-info" ng-show="details">
@@ -31,9 +19,10 @@
         <p class="info-warning" ng-show="i.data.expired && i.data.state!=2">Expired <small>by <span class="badge">{{i.data.delta}}</span> days!</small></p>
         <p class="info-warning" ng-show="!i.data.expired">Missing <small>{{i.data.delta}} days</small></p>
         <p class="info-warning" ng-show="i.data.state==2">Done</p>
+        <p class="info-warning">{{getDateStr(i)}}</p>
       </div>
+      <i class="goto-item fa fa-play-circle aslink" ng-show="details" ng-click="goto(i)"></i>
     </div>
   </div>
-
 </div>
 

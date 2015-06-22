@@ -5,14 +5,21 @@
 
 angular.module('due2App')
   .filter('options', [function() {
+
+    function checkInfo(info) {
+      info.tot = info.tot || {};
+      info.count = info.count || {};
+    }
+
     return function(items, state, expired, info) {
       var filtered = [];
       info = info || {};
-      info.tot = info.tot || {};
+      checkInfo(info);
       if (items && items.length>0) {
         items.forEach(function (i) {
           if ((!state || i.data.state != 2) && (!expired || i.data.expired)) {
             info.tot[i.type] += i.data.realvalue;
+            info.count[i.type] = info.count[i.type] ? info.count[i.type]+1 : 1;
             filtered.push(i);
           }
         });
@@ -23,4 +30,16 @@ angular.module('due2App')
   .controller('SearchCtrl', ['$scope','$http','Cache','Util','Logger', function($scope,$http,Cache,Util,Logger) {
     $scope.searchtext = '';
     $scope.cache = Cache.data;
+    var page = $scope.$parent.overpage;
+    if (page.params){
+      $scope.expired = page.params.expired==true ? true : false;
+      $scope.undone = page.params.undone==true ? true : false;
+      $scope.details = page.params.details==true ? true : false;
+    }
+    $scope.getDateStr = function(i) {
+      return Util.toDateStr(i.date);
+    };
+    $scope.goto = function(i) {
+      $scope.$parent.goto(Util.toDate(i.date));
+    };
   }]);

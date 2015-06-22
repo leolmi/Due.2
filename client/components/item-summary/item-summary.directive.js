@@ -18,7 +18,7 @@ angular.module('due2App')
         scope.filtered = $filter('options')(Cache.data.items, true, true, scope.info);
 
         scope.detail = function() {
-
+          scope.$parent.search({undone:true, expired:true, details:true});
         }
       }
     };

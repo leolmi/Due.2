@@ -98,10 +98,10 @@
   font-size: 8px;
   text-transform: uppercase;
 }
-.item-row.first {
+.item-row:not(.central).first {
   border-top: #444 2px solid;
 }
-.item-row.last {
+.item-row:not(.central).last {
   border-bottom: #444 2px solid;
 }
 
