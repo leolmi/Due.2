@@ -1,11 +1,13 @@
 <div class="overpage overpage-settings container" ng-controller="SettingsCtrl">
   <h1>Options</h1>
-  <div>
-    <label>
-      <input type="checkbox" ng-model="diagram"> Show Budget Diagram
-    </label>
-  </div>
   <br>
+  <div><label><input type="checkbox" ng-model="user.settings.chart"> Show Budget Diagram</label></div>
+  <br>
+  <label>Deafult Budget</label>
+  <input type="text" class="form-control input-sm" ng-model="user.settings.budget" />
+  <br>
+  <button class="btn btn-primary" ng-click="updateSettings()">Update Settings</button>
+  <br><br><br>
   <h1>Change Password</h1>
   <form class="form" name="form" ng-submit="changePassword(form)" novalidate>
     <div class="form-group">

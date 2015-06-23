@@ -30,18 +30,10 @@ angular.module('due2App')
     $scope.showdetails = false;
     $scope.cache = Cache.data;
 
-
-    if (!$rootScope.userdata) {
-      $rootScope.userdata = {
-        central: Util.toDays(new Date())
-      };
-    }
-    $scope.context = $rootScope.userdata;
-
     function rebuildDays() {
       var days = [];
       var today = Util.toDays(new Date());
-      for(var d=$rootScope.userdata.from; d<=$rootScope.userdata.to; d++){
+      for(var d=Cache.data.from; d<=Cache.data.to; d++){
         var date = Util.toDate(d);
         var wd = date.getDay();
         var num = date.getDate();
@@ -49,13 +41,14 @@ angular.module('due2App')
           days[days.length-1].last = true;
         days.push({
           N:d,
+          distance: d-today,
           year: date.getFullYear(),
           month: Util.months[date.getMonth()],
           desc: Util.daysOfWeek[wd],
           num: num,
           we: wd==0 || wd==6,
           today: (today==d),
-          central: d==$rootScope.userdata.central
+          central: d==Cache.data.central
         });
       }
       $scope.days = days;
@@ -104,7 +97,6 @@ angular.module('due2App')
 
     $scope.logout = function() {
       Auth.logout();
-      $rootScope.userdata = undefined;
       $rootScope.user = undefined;
       $location.path('/login');
       Cache.clear();
@@ -130,9 +122,6 @@ angular.module('due2App')
       if (item.real_date)
         item.date = Util.toDays(item.real_date);
       $http.post('/api/dues', item)
-        .success(function(due){
-          //.....
-        })
         .error(function(err) {
           Logger.error("Error creating new due", JSON.stringify(err));
         });
@@ -141,14 +130,14 @@ angular.module('due2App')
     $scope.newelement = function() {
       var item = {
         name: 'New Due',
-        date: $rootScope.userdata.central,
+        date: Cache.data.central,
         type: 'out',
         value: 0
       };
       modalCreate(item);
     };
 
-    $scope.goto = function() {
+    $scope.gotopage = function() {
       openPage('app/main/overpage-goto.html');
     };
 
@@ -169,7 +158,7 @@ angular.module('due2App')
       action: $scope.search
     },{
       style: 'fa-map-marker',
-      action: $scope.goto
+      action: $scope.gotopage
     },{
       separator: true
     },{
@@ -187,7 +176,6 @@ angular.module('due2App')
       $http.put('/api/dues/'+item._id, item)
         .success(function() {
           Logger.ok('Due "'+item.name+'" successfully updated!');
-          //Cache.refresh(item);
         })
         .error(function(err) {
           Logger.error("Error creating new due", JSON.stringify(err));
@@ -206,14 +194,14 @@ angular.module('due2App')
     };
 
     $scope.scrollData = function(value) {
-      $rootScope.userdata.central += value;
+      Cache.data.central += value;
       loadDues();
     };
 
     $scope.goto = function(date) {
       var todate = Util.toDays(date);
       if (todate) {
-        $rootScope.userdata.central = todate;
+        Cache.data.central = todate;
         loadDues();
         $scope.closeOverlay();
       }
@@ -250,8 +238,8 @@ angular.module('due2App')
     function loadDues() {
       var offset = 0;
       var hN2 = Math.floor((w.height() / $scope.itemHeight) / 2);
-      $rootScope.userdata.from = $rootScope.userdata.central - hN2 + offset;
-      $rootScope.userdata.to = $rootScope.userdata.central + hN2 + offset;
+      Cache.data.from = Cache.data.central - hN2 + offset;
+      Cache.data.to = Cache.data.central + hN2 + offset;
       rebuildDays();
     }
 
@@ -259,13 +247,12 @@ angular.module('due2App')
       $scope.search({undone: true, expired: true, details: true});
     };
 
+    $scope.gotoday = function() {
+      $scope.goto(new Date());
+    };
+
     function Init() {
-      Cache.load(function() {
-        var s = {};
-        $filter('options')(Cache.data.items, true, true, s);
-        $scope.summary = s;
-      });
-      loadDues();
+      Cache.load(function() { loadDues(); });
     }
 
 

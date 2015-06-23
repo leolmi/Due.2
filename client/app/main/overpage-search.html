@@ -10,7 +10,7 @@
     <div class="counter">founded <strong>{{res.length}}</strong> dues.</div>
   </div>
   <div class="search-results">
-    <div class="due-item-detail" ng-class="{'visible':details}"
+    <div class="due-item-detail" ng-class="{'visible':details}" draggable="true" dragitem
          ng-repeat="i in res=(cache.items | filter: searchtext | options:undone:expired) | orderBy:'date'">
       <due-item ng-class="{'due-in': i.type=='in', 'due-out':i.type=='out', 'expired':i.data.expired}"
               ng-model="i" ng-click="edit(i)" title="{{i.info}}"></due-item>
@@ -23,6 +23,14 @@
       </div>
       <i class="goto-item fa fa-play-circle aslink" ng-show="details" ng-click="goto(i)"></i>
     </div>
+  </div>
+  <div class="analisys" ng-class="{'used':analisysItems.length}" drop="drop" dropitem>
+    <div class="draghere" ng-hide="analisysItems.length">Drag elements here ...</div>
+    <i class="fa fa-eraser aslink" ng-click="clearAnalisys()" ng-show="analisysItems.length"></i>
+    <due-item ng-repeat="i in analisysItems"
+              ng-class="{'due-in': i.type=='in', 'due-out':i.type=='out', 'expired':i.data.expired}"
+              ng-model="i" ng-click="edit(i)" title="{{i.info}}"></due-item>
+    <div class="analisys-results" ng-show="analisysItems.length">Tot: €<i class="results-value">{{results.tot.toFixed(2)}}</i></div>
   </div>
 </div>
 

@@ -7,8 +7,8 @@
 
 var u = require('../utilities/util');
 var User = require('../api/user/user.model');
+var Settings = require('../api/settings/settings.model');
 var Due = require('../api/due/due.model');
-
 
 User.find({}).remove(function() {
   User.create({
@@ -28,6 +28,21 @@ User.find({}).remove(function() {
       console.log('finished populating users');
   });
 });
+
+Settings.find({}).remove(function() {
+  Settings.create({
+    owner: '54b3e04cde6279a8211b42fe',
+    budget: 'Default',
+    chart: true
+  },{
+    owner: '54b3e04cde6279a8211b42fd',
+    budget: 'BDG',
+    chart: false
+  }, function() {
+    console.log('finished populating settings');
+  });
+});
+
 
 var d1 = u.dateToDays(u.getDate(2015,6,15));
 var d2 = u.dateToDays(u.getDate(2015,6,6));
@@ -52,6 +67,7 @@ Due.find({}).remove(function() {
     type: 'out',
     name: 'pagamento 01',
     date: d2,
+    budgets: ['Sbobba','Ciborio','Palla'],
     value: 150.23
   },{
     owner: '54b3e04cde6279a8211b42fe',
@@ -65,6 +81,7 @@ Due.find({}).remove(function() {
     name: 'pagamento 05',
     date: d2,
     value: 10.89,
+    budgets: ['Zinne'],
     state:[{
       date:d3,
       value:10.89,
@@ -75,6 +92,7 @@ Due.find({}).remove(function() {
     type: 'out',
     name: 'pagamento 02',
     date: d3,
+    budgets: ['Default','Bobo'],
     value: 100.02
   },{
     owner: '54b3e04cde6279a8211b42fe',
@@ -82,6 +100,7 @@ Due.find({}).remove(function() {
     name: 'pagamento 04',
     date: d3,
     value: 89.04,
+    budgets: ['Default','Home'],
     state:[{
       date:d1,
       value:50.00,

@@ -19,7 +19,8 @@
   position: relative;
 }
 
-.search-results due-item {
+.search-results due-item,
+.analisys due-item {
   padding: 4px 6px 10px;
   margin: 4px;
   border-radius: 4px;
@@ -77,4 +78,51 @@
   position: absolute;
   right: 2px;
   bottom: 2px;
+}
+
+.analisys {
+  position: fixed;
+  bottom: 10px;
+  left: 100px;
+  min-height: 80px;
+  width: calc(100% - 150px);
+  border: #777 4px dashed;
+  border-radius: 20px;
+  text-align: left;
+  padding: 10px;
+  color: #777;
+  opacity: .4;
+}
+.analisys.used {
+  background-color: #111;
+  opacity: 1;
+}
+
+.analisys.over {
+  border-color: yellowgreen;
+  color: yellowgreen;
+  opacity: 1;
+}
+
+.analisys-results {
+  width: 100%;
+  border-top: #222 1px solid;
+  text-align: right;
+}
+
+.analisys > i {
+  position: absolute;
+  right: 6px;
+  top: 6px;
+  color: #777;
+}
+.analisys .results-value {
+  font-size: 20px;
+  color: yellowgreen;
+}
+
+.analisys .draghere {
+  pointer-events: none;
+  text-align: center;
+  margin-top: 14px;
 }

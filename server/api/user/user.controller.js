@@ -1,6 +1,7 @@
 'use strict';
 
 var User = require('./user.model');
+var Settings = require('../settings/settings.controller');
 var passport = require('passport');
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
@@ -54,6 +55,7 @@ exports.show = function (req, res, next) {
 exports.destroy = function(req, res) {
   User.findByIdAndRemove(req.params.id, function(err, user) {
     if(err) return res.send(500, err);
+    Settings.remove(user);
     return res.send(204);
   });
 };

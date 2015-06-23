@@ -49,21 +49,29 @@ var error = function(res, err) { return res.send(500, err); };
 exports.error = error;
 
 
+var updateex = function(req, res, err, obj) {
+  if (err) { return error(res, err); }
+  if(!obj) { return notfound(res); }
+
+  var updated = _.merge(obj, req.body, function(a,b){
+    return _.isArray(a) ? b : undefined;
+  });
+  updated.save(function (err) {
+    if (err) { return error(res, err); }
+    return ok(res, obj);
+  });
+};
+exports.updateex = updateex;
+
+
 exports.update = function(schema, req, res) {
   if(req.body._id) { delete req.body._id; }
   schema.findById(req.params.id, function (err, obj) {
-    if (err) { return error(res, err); }
-    if(!obj) { return notfound(res); }
-
-    var updated = _.merge(obj, req.body, function(a,b){
-      return _.isArray(a) ? b : undefined;
-    });
-    updated.save(function (err) {
-      if (err) { return error(res, err); }
-      return ok(res, obj);
-    });
+    updateex(req, res, err, obj);
   });
 };
+
+
 
 exports.create = function(schema, req, res) {
   schema.create(req.body, function(err, obj) {

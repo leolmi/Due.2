@@ -6,14 +6,13 @@
   <div class="over-page" ng-class="{'active':overpage}">
     <div class="over-page-content">
       <i class="fa fa-3x fa-times aslink onright overlay-times" ng-click="closeOverlay()"></i>
-      <div ng-if="overpage.template" ng-include="overpage.template"></div>
+      <div class="overpage-body" ng-if="overpage.template" ng-include="overpage.template"></div>
     </div>
     <div class="overlay" ng-click="closeOverlay()"></div>
   </div>
   <div class="scroller" ng-mouse-wheel="scrollData" ng-class="{'blur':overpage || submenu || context.ismodal}">
     <div class="middle-line"></div>
     <div class="item-row center-text" ng-class="{'week-end':d.we, 'central':d.central, 'today':d.today, 'last':d.last, 'first':d.num==1}" ng-repeat="d in days">
-      <!--<item-summary ng-show="d.central" type="'out'"></item-summary>-->
       <div class="item-row-element item-row-dues item-row-dues-out">
         <due-item ng-repeat="i in cache.items | filter: { date:d.N, type:'out' }"
                   ng-class="{'done':i.data.state==2, 'expired':i.data.expired}"
@@ -22,17 +21,19 @@
       <div class="item-row-element item-row-element-date item-row-day center-text">
         <div class="day-num">{{d.num}}</div>
         <div class="day-desc">{{d.desc}}</div>
-        <div class="day-month day-month-first" ng-show="d.num==1 || d.central">{{d.month}}</div>
+        <div class="day-month day-month-first" ng-show="d.num==1 || d.central">{{d.month}}
+          <div ng-show="d.central && d.distance!=0" class="aslink" ng-click="gotoday()"><span class="badge">{{d.distance>0 ? '+' : ''}}{{d.distance}}</span></div>
+        </div>
         <div class="day-month day-month-last" ng-show="d.last || d.central">{{d.central ? d.year : d.month}}</div>
         <div class="item-alert aslink shadow" ng-mouseover="showdetails=true" ng-mouseleave="showdetails=false"
-             ng-show="d.central && summary && summary.count.tot>0" ng-click="details()"> {{summary.count.tot}}</div>
-        <div class="item-alert-detail shadow" ng-show="d.central && summary && summary.count.tot>0"
+             ng-show="d.central && cache.summary && cache.summary.count.tot>0" ng-click="details()"> {{cache.summary.count.tot}}</div>
+        <div class="item-alert-detail shadow" ng-show="d.central && cache.summary && cache.summary.count.tot>0"
              ng-class="{'visible':showdetails}">
-          <div ng-show="summary.count.out>0">
-            <i class="fa fa-fw fa-sign-out"></i>{{summary.count.out}}: <small>€</small>{{summary.tot.out.toFixed(2)}}
+          <div ng-show="cache.summary.count.out>0">
+            <i class="fa fa-fw fa-sign-out"></i>{{cache.summary.count.out}}: <small>€</small>{{cache.summary.tot.out.toFixed(2)}}
           </div>
-          <div ng-show="summary.count.in>0">
-            <i class="fa fa-fw fa-sign-in"></i>{{summary.count.in}}: <small>€</small>{{summary.tot.in.toFixed(2)}}
+          <div ng-show="cache.summary.count.in>0">
+            <i class="fa fa-fw fa-sign-in"></i>{{cache.summary.count.in}}: <small>€</small>{{cache.summary.tot.in.toFixed(2)}}
           </div>
         </div>
       </div>

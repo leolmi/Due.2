@@ -31,6 +31,8 @@
   <label class="label-alone">
     <i class="fa fa-fw aslink" ng-click="toggleAuto()" ng-class="{'fa-toggle-on':modal.item.automatic, 'fa-toggle-off':!modal.item.automatic}"></i> Automatic
   </label>
+  <label>Budgets</label>
+  <tag-editor tags="modal.item.budgets" alltags="cache.tags"></tag-editor>
   <label>Details</label>
   <textarea ng-model="modal.item.info" rows="2" class="form-control vertical"></textarea>
   <div ng-show="!modal.item.automatic && modal.item.state.length>0">

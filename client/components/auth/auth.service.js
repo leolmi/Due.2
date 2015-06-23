@@ -20,21 +20,22 @@ angular.module('due2App')
         var cb = callback || angular.noop;
         var deferred = $q.defer();
 
-        $http.post('/auth/local', {
-          email: user.email,
-          password: user.password
-        }).
-        success(function(data) {
-          $cookieStore.put('token', data.token);
-          currentUser = User.get();
-          deferred.resolve(data);
-          return cb();
-        }).
-        error(function(err) {
-          this.logout();
-          deferred.reject(err);
-          return cb(err);
-        }.bind(this));
+        $http.post('/auth/local', { email: user.email, password: user.password})
+          .success(function(data) {
+            $cookieStore.put('token', data.token);
+            currentUser = User.get();
+            $http.get('/api/settings')
+              .success(function(settins){
+                currentUser.settings = settins;
+                deferred.resolve(data);
+                return cb();
+              })
+          })
+          .error(function(err) {
+            this.logout();
+            deferred.reject(err);
+            return cb(err);
+          }.bind(this));
 
         return deferred.promise;
       },

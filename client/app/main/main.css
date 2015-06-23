@@ -136,6 +136,12 @@
 .day-month-last:hover {
   opacity: 1;
 }
+.day-month .badge {
+  background-color: #222;
+  color: #777;
+}
+
+
 
 .item-row.central .day-month-first,
 .item-row.central .day-month-last {
@@ -224,7 +230,9 @@
 .overpage label {
   font-weight: normal;
 }
-
+.overpage-body {
+  overflow: hidden;
+}
 
 
 

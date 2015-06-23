@@ -6,7 +6,7 @@
 'use strict';
 
 angular.module('due2App')
-  .controller('ModalEditCtrl', ['$scope','$timeout','Util','Logger', function ($scope,$timeout,Util,Logger) {
+  .controller('ModalEditCtrl', ['$scope','$timeout','Util','Cache', function ($scope,$timeout,Util,Cache) {
 		$scope.modal.item.real_date = Util.toDate($scope.modal.item.date);
 		$scope.dateOptions = {
       formatYear: 'yy',
@@ -18,6 +18,8 @@ angular.module('due2App')
     //  click: function() {
     //  }
     //})
+
+    $scope.cache = Cache.data;
 
 		$scope.open = function($event) {
       $event.preventDefault();

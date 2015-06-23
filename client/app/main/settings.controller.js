@@ -4,8 +4,19 @@
 'use strict';
 
 angular.module('due2App')
-  .controller('SettingsCtrl', function ($scope, User, Auth) {
+  .controller('SettingsCtrl',['$scope','$http','User','Auth','Logger', function ($scope,$http,User,Auth,Logger) {
     $scope.errors = {};
+    $scope.user = Auth.getCurrentUser();
+
+    $scope.updateSettings = function() {
+      $http.put('/api/settings', $scope.user.settings)
+        .success(function(){
+          Logger.ok('Settings updated successfully.');
+        })
+        .error(function(err){
+          Logger.error('Error updating settings', err);
+        });
+    };
 
     $scope.changePassword = function(form) {
       $scope.submitted = true;
@@ -21,4 +32,4 @@ angular.module('due2App')
           });
       }
     };
-  });
+  }]);

@@ -24,8 +24,8 @@ angular.module('due2App')
         item.state.forEach(function(v){
           tot += v.value;
         });
-        state = (tot>=item.value) ? 2 : 1;
-        item.data.realvalue = tot >= item.value ? tot : item.value - tot;
+        state = ((item.value-tot)<0.0001) ? 2 : 1;
+        item.data.realvalue = ((item.value-tot)<0.0001) ? tot : item.value - tot;
       }
       else if (item.automatic && item.data.expired){
         state = 2;

@@ -7,9 +7,9 @@ var u = require('../../utilities/util');
 
 // Get list of targets
 exports.index = function(req, res) {
-  var filter = { 
+  var filter = {
     owner: req.user._id,
-    $where: 'this.date >= '+req.params.from+' && this.date <= '+req.params.to 
+    $where: 'this.date >= '+req.params.from+' && this.date <= '+req.params.to
   };
   console.log('Richiesta: '+JSON.stringify(filter));
   return u.index(Due, req, res, filter);
@@ -22,8 +22,8 @@ exports.show = function(req, res) {
 
 // Creates a new target in the DB.
 exports.create = function(req, res) {
-  var due = req.body || {};  
-  due.type = 'out';
+  var due = req.body || {};
+  due.type = due.type || 'out';
   due.owner = req.user._id;
   due.active = true;
   return u.create(Due, req, res);
