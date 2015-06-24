@@ -1,20 +1,20 @@
 <div class="overpage overpage-goto container" data-ng-controller="GotoCtrl">
-  <h1>Go to...</h1>
+  <h1>Vai al...</h1>
   <div class="radio" ng-class="{'active':target=='today'}">
     <label>
-      <input type="radio" id="radio1" ng-model="target" value="today"> Today
+      <input type="radio" id="radio1" ng-model="target" value="today"> Oggi
     </label>
   </div>
   <div class="radio" ng-class="{'active':target=='userdate'}">
     <label>
-      <input type="radio" id="radio2" ng-model="target" value="userdate"> Choise a date:
+      <input type="radio" id="radio2" ng-model="target" value="userdate"> Scegli una data:
     </label>
     <input id="timepicker" type="date" class="form-control input-sm" datepicker-popup ng-model="initdate"
            is-open="opened" datepicker-options="submenu.dateOptions" close-text="Close" ng-focus="focus('userdate')"/>
   </div>
   <div class="radio" ng-class="{'active':target=='adddays'}">
     <label>
-      <input type="radio" id="radio3" ng-model="target" value="adddays"> Add days:
+      <input type="radio" id="radio3" ng-model="target" value="adddays"> Aggiungi giorni:
     </label>
     <input id="adddays" type="number" class="form-control input-sm" ng-model="daystoadd" ng-focus="focus('adddays')"/>
   </div>

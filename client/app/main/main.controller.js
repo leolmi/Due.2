@@ -26,7 +26,6 @@ angular.module('due2App')
     $scope.itemHeight = 60;
     $scope.visibleDues = [];
     var w = angular.element($window);
-    w.bind('resize', function () { loadDues(); });
     $scope.showdetails = false;
     $scope.cache = Cache.data;
 
@@ -113,23 +112,19 @@ angular.module('due2App')
       openPage('app/main/overpage-settings.html');
     };
 
-    $scope.settings = function() {
-      openPage('app/main/overpage-options.html');
-    };
-
 
     var modalCreate = Modal.confirm.edit(function(item) {
       if (item.real_date)
         item.date = Util.toDays(item.real_date);
       $http.post('/api/dues', item)
         .error(function(err) {
-          Logger.error("Error creating new due", JSON.stringify(err));
+          Logger.error("Errore creando una nuova scadenza", JSON.stringify(err));
         });
     });
 
     $scope.newelement = function() {
       var item = {
-        name: 'New Due',
+        name: 'Nuova Scadenza',
         date: Cache.data.central,
         type: 'out',
         value: 0
@@ -175,15 +170,20 @@ angular.module('due2App')
     function updateItem(item) {
       $http.put('/api/dues/'+item._id, item)
         .success(function() {
-          Logger.ok('Due "'+item.name+'" successfully updated!');
+          Logger.ok('Scadenza "'+item.name+'" aggiornata correttamente!');
         })
         .error(function(err) {
-          Logger.error("Error creating new due", JSON.stringify(err));
+          Logger.error("Errore aggiornando la scadenza", JSON.stringify(err));
         });
     }
 
     var modalEdit = Modal.confirm.edit(function(item) {
       updateItem(item);
+    },function(item, resp){
+      if (resp && resp.action){
+        if (resp.action=='handle')
+          $scope.handle(item);
+      }
     });
 
     $scope.edit = function(item){ modalEdit(item); };
@@ -210,10 +210,10 @@ angular.module('due2App')
     var modalDelete = Modal.confirm.ask(function(item) {
       $http.delete('/api/dues/' + item._id)
         .success(function() {
-          Logger.ok('Due successfully deleted!');
+          Logger.ok('Scadenza eliminata correttamente!');
         })
         .error(function(err){
-          Logger.error('Error during due deletion!', err);
+          Logger.error('Errore durante l\'eliminazione della scadenza!', err);
         });
     });
 
@@ -230,7 +230,7 @@ angular.module('due2App')
     $scope.handle = function(item) {
       var state = {
         date: Util.toDays(new Date()),
-        value: item.data.realvalue.toFixed(2)
+        value: item.data.done ? 0 : item.data.realvalue.toFixed(2)
       };
       modalHandle(item, state);
     };
@@ -242,6 +242,8 @@ angular.module('due2App')
       Cache.data.to = Cache.data.central + hN2 + offset;
       rebuildDays();
     }
+
+    w.bind('resize', function () { $scope.$apply(loadDues()); });
 
     $scope.details = function() {
       $scope.search({undone: true, expired: true, details: true});

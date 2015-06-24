@@ -91,6 +91,14 @@ body {
 }
 
 
+.rotate-45 {
+  transform: rotate(315deg) ;
+  -webkit-transform: rotate(315deg) ;
+  -moz-transform: rotate(315deg) ;
+  -o-transform: rotate(315deg) ;
+  -ms-transform: rotate(315deg) ;
+}
+
 .primary {
   color:#fff;
   background-color: #3276b1;

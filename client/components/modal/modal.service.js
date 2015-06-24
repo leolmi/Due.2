@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('due2App')
-  .factory('Modal', ['$rootScope','$modal','Util',function ($rootScope,$modal,Util) {
+  .factory('Modal', ['$rootScope','$modal','Cache',function ($rootScope,$modal,Cache) {
     var modal_DELETE = 'delete';
     var modal_YESNOCANCEL = 'yesnocancel';
     /**
@@ -17,8 +17,7 @@ angular.module('due2App')
 
       angular.extend(modalScope, scope);
 
-      if ($rootScope.userdata)
-        $rootScope.userdata.ismodal = true;
+      Cache.data.ismodal = true;
 
       return $modal.open({
         templateUrl: 'components/modal/modal.html',
@@ -28,8 +27,7 @@ angular.module('due2App')
     }
 
     function resetModalState() {
-      if ($rootScope.userdata)
-        $rootScope.userdata.ismodal = false;
+      Cache.data.ismodal = false;
     }
 
     return {
@@ -51,7 +49,7 @@ angular.module('due2App')
             ok: 'OK',
             okClass: 'btn-warning',
             okResult: 'ok',
-            cancel: 'Cancel',
+            cancel: 'Annulla',
             cancelClass: 'btn-default',
             no: '',
             noClass: 'btn-danger',
@@ -60,14 +58,14 @@ angular.module('due2App')
           };
           switch(type) {
             case(modal_DELETE):
-              opt.title = 'Confirm Delete';
-              opt.body = '<p>Are you sure you want to delete <strong>' + args[0] + '</strong> ?</p>';
-              opt.ok = 'Delete';
+              opt.title = 'Confirma Eliminazione';
+              opt.body = '<p>Sicuro di voler eliminare <strong>' + args[0] + '</strong> ?</p>';
+              opt.ok = 'Elimina';
               opt.okClass = 'btn-danger';
               opt.modalClass = 'modal-danger';
               break;
             case(modal_YESNOCANCEL):
-              opt.ok = 'Yes';
+              opt.ok = 'Si';
               opt.no = 'No';
               break;
           }
@@ -78,7 +76,7 @@ angular.module('due2App')
         /**
          * Create a function to open a generic confirmation modal (ex. ng-click='myModalFn(options, arg1, arg2...)')
          * @param  {Function} exc - callback, ran when execution is confirmed
-         * @param  {Function} dsc - callback, ran when execution is discard
+         * @param  {Function} [dsc] - callback, ran when execution is discard
          * @return {Function}     - the function to open the modal (ex. myModalFn)
          */
         ask: function(exc, dsc) {
@@ -142,11 +140,13 @@ angular.module('due2App')
 
         /**
          * Modifica una scadenza ...
-         * @param cb
+         * @param  {Function} exc - callback, ran when execution is confirmed
+         * @param  {Function} [dsc] - callback, ran when execution is discard
          * @returns {Function}
          */
-        edit: function(cb) {
-          cb = cb || angular.noop;
+        edit: function(exc, dsc) {
+          exc = exc || angular.noop;
+          dsc = dsc || angular.noop;
 
           return function() {
             var args = Array.prototype.slice.call(arguments);
@@ -159,6 +159,13 @@ angular.module('due2App')
                 title: args[0].name,
                 template: 'components/modal/modal-edit.html',
                 buttons: [{
+                  classes: 'btn-primary onleft',
+                  text: 'Inserisci Valuta',
+                  click: function(e) {
+                    args.push({ action: 'handle'});
+                    editModal.dismiss(e);
+                  }
+                },{
                   classes: 'btn-success',
                   text: 'Ok',
                   click: function(e) {
@@ -166,7 +173,7 @@ angular.module('due2App')
                   }
                 },{
                   classes: 'btn-warning',
-                  text: 'Cancel',
+                  text: 'Annulla',
                   click: function(e) {
                     editModal.dismiss(e);
                   }
@@ -175,9 +182,10 @@ angular.module('due2App')
             }, 'modal-edit');
 
             editModal.result.then(function(event) {
-              cb.apply(event, args);
+              exc.apply(event, args);
               resetModalState();
             }, function() {
+              dsc.apply(event, args);
               resetModalState();
             });
           };
@@ -210,7 +218,7 @@ angular.module('due2App')
                   click: function(e) { handleModal.close(e); }
                 }, {
                   classes: 'btn-warning',
-                  text: 'Cancel',
+                  text: 'Annulla',
                   click: function(e) { handleModal.dismiss(e); }
                 }],
                 openDate: function(event) {

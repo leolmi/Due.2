@@ -1,14 +1,14 @@
 <div ng-controller="ModalHandleCtrl">
-  <label>Date</label>
+  <label>Data</label>
   <input id="timepicker-handle" type="date" class="form-control input-sm" datepicker-popup ng-model="modal.state.real_date"
          is-open="opened" datepicker-options="dateOptions" close-text="Close" ng-change="syncdate()"/>
-  <label>Value</label>
+  <label>Valore</label>
   <div class="input-group">
     <div class="input-group-addon">€</div>
-    <input type="text" class="form-control input-sm" id="first-control" placeholder="value" data-ng-model="modal.state.value" autofocus>
+    <input type="text" class="form-control input-sm" id="first-control" placeholder="valore" data-ng-model="modal.state.value" autofocus>
   </div>
-  <label>Type</label>
-  <input type="text" class="form-control input-sm" placeholder="type" data-ng-model="modal.state.type">
-  <label>Description</label>
-  <input type="text" class="form-control input-sm" placeholder="description" data-ng-model="modal.state.desc">
+  <label>Modalità</label>
+  <input type="text" class="form-control input-sm" placeholder="modalità" data-ng-model="modal.state.type">
+  <label>Descrizione</label>
+  <input type="text" class="form-control input-sm" placeholder="descrizione" data-ng-model="modal.state.desc">
 </div>

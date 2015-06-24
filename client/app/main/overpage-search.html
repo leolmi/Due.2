@@ -1,31 +1,35 @@
 <div class="overpage overpage-search container" ng-controller="SearchCtrl">
   <div class="header">
-    <h1>Search for dues...</h1>
-    <input type="text" class="form-control input-sm" ng-model="searchtext">
-    <div class="options">
-      <div> <label> <input type="checkbox" ng-model="expired"> Expired </label> </div>
-      <div> <label> <input type="checkbox" ng-model="undone"> Undone </label> </div>
-      <div> <label> <input type="checkbox" ng-model="details"> Details </label> </div>
+    <h1>Cerca scadenze ...</h1>
+    <div class="input-group-text">
+      <input type="text" class="form-control input-sm" ng-model="searchtext" placeholder="cerca...">
+      <i class="fa fa-times aslink" ng-click="searchtext=undefined"></i>
     </div>
-    <div class="counter">founded <strong>{{res.length}}</strong> dues.</div>
+
+    <div class="options">
+      <div> <label> <input type="checkbox" ng-model="expired"> Scaduti </label> </div>
+      <div> <label> <input type="checkbox" ng-model="undone"> Non Terminati </label> </div>
+      <div> <label> <input type="checkbox" ng-model="details"> Dettagli </label> </div>
+    </div>
+    <div class="counter">trovate <strong>{{res.length}}</strong> scadenze.</div>
   </div>
   <div class="search-results">
     <div class="due-item-detail" ng-class="{'visible':details}" draggable="true" dragitem
          ng-repeat="i in res=(cache.items | filter: searchtext | options:undone:expired) | orderBy:'date'">
       <due-item ng-class="{'due-in': i.type=='in', 'due-out':i.type=='out', 'expired':i.data.expired}"
-              ng-model="i" ng-click="edit(i)" title="{{i.info}}"></due-item>
+              ng-model="i" ng-click="edit(i)" title="{{i.info}}" checked="isSelected(i)"></due-item>
       <div class="due-item-info" ng-show="details">
         <i class="fa" ng-class="{'fa-exclamation-circle':i.data.expired && i.data.state!=2, 'fa-clock-o':!i.data.expired}"></i>
-        <p class="info-warning" ng-show="i.data.expired && i.data.state!=2">Expired <small>by <span class="badge">{{i.data.delta}}</span> days!</small></p>
-        <p class="info-warning" ng-show="!i.data.expired">Missing <small>{{i.data.delta}} days</small></p>
-        <p class="info-warning" ng-show="i.data.state==2">Done</p>
+        <p class="info-warning" ng-show="i.data.expired && i.data.state!=2">Scaduto da <small><span class="badge">{{i.data.delta}}</span>gg</small></p>
+        <p class="info-warning" ng-show="!i.data.expired">Scadenza tra <small><span class="badge">{{i.data.delta}}</span>gg</small></p>
+        <p class="info-warning" ng-show="i.data.state==2">Fatto!</p>
         <p class="info-warning">{{getDateStr(i)}}</p>
       </div>
       <i class="goto-item fa fa-play-circle aslink" ng-show="details" ng-click="goto(i)"></i>
     </div>
   </div>
   <div class="analisys" ng-class="{'used':analisysItems.length}" drop="drop" dropitem>
-    <div class="draghere" ng-hide="analisysItems.length">Drag elements here ...</div>
+    <div class="draghere" ng-hide="analisysItems.length">Trascina gli elementi qui ...</div>
     <i class="fa fa-eraser aslink" ng-click="clearAnalisys()" ng-show="analisysItems.length"></i>
     <due-item ng-repeat="i in analisysItems"
               ng-class="{'due-in': i.type=='in', 'due-out':i.type=='out', 'expired':i.data.expired}"

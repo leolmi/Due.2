@@ -18,12 +18,21 @@ angular.module('due2App')
         });
     };
 
+    function clear() {
+      $scope.user.oldPassword = undefined;
+      $scope.user.newPassword = undefined;
+      $scope.user.password2 = undefined;
+      $scope.submitted = false;
+      $scope.errors = undefined;
+    }
+
     $scope.changePassword = function(form) {
       $scope.submitted = true;
       if(form.$valid) {
         Auth.changePassword( $scope.user.oldPassword, $scope.user.newPassword )
           .then( function() {
             $scope.message = 'Password successfully changed.';
+            clear();
           })
           .catch( function() {
             form.password.$setValidity('mongoose', false);
@@ -32,4 +41,6 @@ angular.module('due2App')
           });
       }
     };
+
+    clear();
   }]);

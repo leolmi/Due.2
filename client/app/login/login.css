@@ -22,9 +22,14 @@
   border-color: #ccc;
 }*/
 
-.has-error .help-block,
+
 .help-block {
-  color: red;
+  color: cadetblue;
+}
+
+.has-error .help-block,
+.help-block.error{
+  color: orangered;
 }
 
 .hero-unit i {
@@ -90,7 +95,7 @@
 
 .lgn-btn {
   /*bottom: 30px;*/
-  position: absolute;  
+  position: absolute;
 }
 
 .lgn-btn.onright {

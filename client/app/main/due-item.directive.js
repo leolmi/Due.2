@@ -4,7 +4,7 @@ angular.module('due2App')
   .directive('dueItem', ['Logger', function (Logger) {
     return {
       restrict: 'E',
-      scope: { item: '=ngModel' },
+      scope: { item: '=ngModel', checked:'=' },
       templateUrl: 'app/main/due-item.html',
       link: function (scope, elm, atr) {
         function stopEvent(e) {

@@ -17,6 +17,7 @@ due-item.done {
   background: url('../../assets/images/overlay.png') repeat;
 }
 
+due-item:not(.expired):not(.done):hover,
 due-item:hover,
 due-item.done:hover {
   opacity: 1;
@@ -92,4 +93,22 @@ due-item > footer {
   text-align: right;
   width: 100%;
   padding-right: 10px;
+}
+
+
+.item-check-back {
+  position: absolute;
+  z-index: 10;
+  background-color: #222;
+  width: 40px;
+  height: 20px;
+  left: -12px;
+  top: -2px;
+}
+
+.item-check {
+  position: absolute;
+  z-index: 20;
+  left: 3px;
+  top: 3px;
 }

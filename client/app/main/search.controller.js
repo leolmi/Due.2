@@ -63,4 +63,9 @@ angular.module('due2App')
       $scope.analisysItems.push(Cache.get(id));
       calc();
     };
+
+    $scope.isSelected = function(item) {
+      if (!$scope.analisysItems) return false;
+      return $.grep($scope.analisysItems, function(i){ return i._id==item._id }).length>0;
+    };
   }]);

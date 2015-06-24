@@ -10,7 +10,7 @@
     </div>
     <div class="overlay" ng-click="closeOverlay()"></div>
   </div>
-  <div class="scroller" ng-mouse-wheel="scrollData" ng-class="{'blur':overpage || submenu || context.ismodal}">
+  <div class="scroller" ng-mouse-wheel="scrollData" ng-class="{'blur':overpage || submenu || cache.ismodal}">
     <div class="middle-line"></div>
     <div class="item-row center-text" ng-class="{'week-end':d.we, 'central':d.central, 'today':d.today, 'last':d.last, 'first':d.num==1}" ng-repeat="d in days">
       <div class="item-row-element item-row-dues item-row-dues-out">

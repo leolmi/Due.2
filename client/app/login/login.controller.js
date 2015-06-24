@@ -1,11 +1,26 @@
 'use strict';
 
 angular.module('due2App')
+  .directive('compareTo',[function() {
+    return {
+      require: "ngModel",
+      scope: { otherModelValue: "=compareTo" },
+      link: function(scope, elm, atr, ngModel) {
+        ngModel.$validators.compareTo = function(modelValue) {
+          return modelValue == scope.otherModelValue;
+        };
+
+        scope.$watch("otherModelValue", function() {
+          ngModel.$validate();
+        });
+      }
+    };
+  }])
   .controller('LoginCtrl', ['$scope','$rootScope','Auth','$location','$window','Logger',function ($scope,$rootScope,Auth,$location,$window,Logger) {
     $scope.version = '1.0.0';
     $scope.errors = {};
     $scope.loginform = true;
-    
+
     if (!$rootScope.user) {
       $rootScope.user = {
         email: 'test@test.com',
@@ -13,7 +28,7 @@ angular.module('due2App')
       };
     }
     $scope.user = $rootScope.user;
-    
+
     function resetErrors(skipsub) {
       if (!skipsub)
         $scope.submitted = false;
@@ -23,13 +38,13 @@ angular.module('due2App')
 
     if (!$rootScope.errors)
       resetErrors();
-    
-    
+
+
     $scope.toggle = function(lgn) {
       resetErrors();
       $scope.loginform = lgn;
     };
-    
+
     $scope.login = function(form) {
       $scope.submitted = true;
 
