@@ -21,8 +21,7 @@ angular.module('due2App')
       });
     };
   })
-  .controller('MainCtrl', ['$scope','$rootScope','Cache','$timeout','$window','$http','$filter','socket','Auth','$location','Modal','Util','Logger',
-    function ($scope,$rootScope,Cache,$timeout,$window,$http,$filter,socket,Auth,$location,Modal,Util,Logger) {
+  .controller('MainCtrl', ['$scope','$rootScope','Cache','$timeout','$window','$http','$filter','socket','Auth','$location','Modal','Util','Logger', function ($scope,$rootScope,Cache,$timeout,$window,$http,$filter,socket,Auth,$location,Modal,Util,Logger) {
     $scope.itemHeight = 60;
     $scope.visibleDues = [];
     var w = angular.element($window);
@@ -258,7 +257,9 @@ angular.module('due2App')
       Cache.load(function() { loadDues(); });
     }
 
-
     Init();
+
+    $scope.chartsize = {'w': w.width(), 'h': w.height() };
+
     //loadDues();
   }]);

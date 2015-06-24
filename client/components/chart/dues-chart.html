@@ -1,0 +1,8 @@
+<svg ng-attr-height="{{height}}" ng-attr-width="{{width}}">
+  <g ng-repeat="p in paths">
+    <!--<circle ng-switch-when="0" ng-attr-cx="{{ele.x}}" ng-attr-cy="{{ele.y}}" ng-attr-r="{{ele.r}}" stroke-width="{{ele.sw||sw}}" class="{'focus':ele.f===1}">-->
+    <!--<path ng-switch-when="1" d="M{{ele.lx}},{{ele.ly}} L{{ele.x}},{{ele.y}}" stroke-width="{{ele.sw||sw}}"  class="{'focus':ele.f===1}"/>-->
+    <path d="M{{p.lx}},{{p.ly}} L{{p.x}},{{p.y}}" stroke-width="{{p.sw||sw}}"/>
+    <!--<polygon points="100,10 40,198 190,78 10,78 160,198" style="fill:lime;stroke:purple;stroke-width:5;fill-rule:nonzero;"/>-->
+  </g>
+</svg>
