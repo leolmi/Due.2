@@ -28,6 +28,7 @@ angular.module('due2App')
     var w = angular.element($window);
     $scope.showdetails = false;
     $scope.cache = Cache.data;
+    $scope.loggeduser = Auth.getCurrentUser();
 
     function rebuildDays() {
       var days = [];

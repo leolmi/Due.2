@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('due2App')
-  .controller('SettingsCtrl',['$scope','$http','User','Auth','Logger', function ($scope,$http,User,Auth,Logger) {
+  .controller('SettingsCtrl',['$scope','$http','User','Auth','Logger','Cache', function ($scope,$http,User,Auth,Logger,Cache) {
     $scope.errors = {};
     $scope.user = Auth.getCurrentUser();
 
@@ -40,6 +40,15 @@ angular.module('due2App')
             $scope.message = '';
           });
       }
+    };
+
+    $scope.download = function() {
+      var content = JSON.stringify(Cache.data.items);
+      content = content.replace(/},{/g,'},\r\n{');
+      content = content.replace(/("_id":".*?",)/g,'');
+      content = content.replace(/("owner":".*?",)/g,'');
+      var file = new Blob([content], { type: 'text/json;charset=utf-8' });
+      saveAs(file,'dues.json');
     };
 
     clear();

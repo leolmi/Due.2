@@ -1,4 +1,6 @@
 <div class="overpage overpage-settings container" ng-controller="SettingsCtrl">
+  <p class="user-logged"><i class="fa fa-2x fa-user"></i> {{loggeduser.email}}</p>
+  <br>
   <h1>Opzioni</h1>
   <br>
   <div><label><input type="checkbox" ng-model="user.settings.chart"> Mostra diagramma dei budgets</label></div>
@@ -29,4 +31,8 @@
     <p class="help-block"> {{ message }} </p>
     <button class="btn btn-primary" type="submit">Salva Nuova Password</button>
   </form>
+  <br><br><br>
+  <h1>Utilità</h1>
+  <br>
+  <button class="btn btn-warning" ng-click="download()">Scarica dati</button>
 </div>

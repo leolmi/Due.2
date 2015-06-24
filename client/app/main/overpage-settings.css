@@ -4,5 +4,8 @@
 
 .overpage-settings input {
   max-width: 400px;
-  /*display: inline-block;*/
+}
+
+.overpage-settings .user-logged{
+  color: yellowgreen;
 }
