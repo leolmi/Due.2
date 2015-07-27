@@ -6,13 +6,14 @@ angular.module('due2App')
     return {
       restrict: 'E',
       scope: { height:'=', width:'=' },
-      templateUrl: 'components/chart/dues-chart.html',
+      templateUrl: '/components/chart/dues-chart.html',
       link: function (scope, elm, atr) {
         //var svg = elm.find('svg');
 
         scope.paths = [
-          //{x:100,y:0,lx:100,ly:scope.height,sw:2,cl:'none'},
-          //{x:300,y:scope.height,lx:300,ly:0,sw:6,cl:'none'}
+          {x:100,y:0,lx:100,ly:scope.height,sw:2,cl:'none'},
+          {x:100,y:100,lx:300,ly:450,sw:6,cl:'none'},
+          {x:300,y:scope.height,lx:300,ly:0,sw:6,cl:'none'}
         ];
       }
     }

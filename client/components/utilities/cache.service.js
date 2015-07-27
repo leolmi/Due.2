@@ -1,7 +1,7 @@
 /**
  * Created by Leo on 20/06/2015.
  */
-'use strict'
+'use strict';
 
 angular.module('due2App')
   .factory('Cache',['$http','socket','$filter','Util','Logger',function($http,socket,$filter,Util,Logger) {

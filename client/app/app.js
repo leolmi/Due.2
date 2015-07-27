@@ -9,7 +9,7 @@ angular.module('due2App', [
   'ui.bootstrap',
   'toastr'
 ])
-  .config(function ($routeProvider, $locationProvider, $httpProvider) {
+  .config(['$routeProvider','$locationProvider','$httpProvider',function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
       .otherwise({
         redirectTo: '/'
@@ -17,9 +17,9 @@ angular.module('due2App', [
 
     $locationProvider.html5Mode(true);
     $httpProvider.interceptors.push('authInterceptor');
-  })
+  }])
 
-  .factory('authInterceptor', function ($rootScope, $q, $cookieStore, $location) {
+  .factory('authInterceptor',['$rootScope','$q','$cookieStore','$location', function($rootScope,$q,$cookieStore,$location) {
     return {
       // Add authorization token to headers
       request: function (config) {
@@ -43,9 +43,9 @@ angular.module('due2App', [
         }
       }
     };
-  })
+  }])
 
-  .run(function ($rootScope, $location, Auth) {
+  .run(['$rootScope','$location','Auth',function ($rootScope, $location, Auth) {
     // Redirect to login if route requires auth and you're not logged in
     $rootScope.$on('$routeChangeStart', function (event, next) {
       Auth.isLoggedInAsync(function(loggedIn) {
@@ -54,4 +54,4 @@ angular.module('due2App', [
         }
       });
     });
-  });
+  }]);

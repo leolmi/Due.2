@@ -4,10 +4,10 @@
 'use strict';
 
 angular.module('due2App')
-  .config(function ($routeProvider) {
+  .config(['$routeProvider',function($routeProvider) {
     $routeProvider
       .when('/login', {
         templateUrl: 'app/login/login.html',
         controller: 'LoginCtrl'
       });
-  });
+  }]);

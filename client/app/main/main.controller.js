@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('due2App')
-  .directive('ngMouseWheel', function() {
+  .directive('ngMouseWheel', [function() {
     return function(scope, element, attrs) {
       element.bind("DOMMouseScroll mousewheel onmousewheel", function(e) {
         // cross-browser wheel delta
@@ -20,7 +20,7 @@ angular.module('due2App')
         }
       });
     };
-  })
+  }])
   .controller('MainCtrl', ['$scope','$rootScope','Cache','$timeout','$window','$http','$filter','socket','Auth','$location','Modal','Util','Logger', function ($scope,$rootScope,Cache,$timeout,$window,$http,$filter,socket,Auth,$location,Modal,Util,Logger) {
     $scope.itemHeight = 60;
     $scope.visibleDues = [];

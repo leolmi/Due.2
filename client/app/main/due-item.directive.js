@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('due2App')
-  .directive('dueItem', ['Logger', function (Logger) {
+  .directive('dueItem', [function () {
     return {
       restrict: 'E',
       scope: { item: '=ngModel', checked:'=' },

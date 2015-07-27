@@ -23,8 +23,8 @@ angular.module('due2App')
 
     if (!$rootScope.user) {
       $rootScope.user = {
-        email: 'test@test.com',
-        password: 'test'
+        email: undefined,
+        password: undefined
       };
     }
     $scope.user = $rootScope.user;

@@ -11,7 +11,6 @@ angular.module('due2App')
 
       /**
        * Authenticate user and save token
-       *
        * @param  {Object}   user     - login info
        * @param  {Function} callback - optional
        * @return {Promise}
@@ -25,8 +24,8 @@ angular.module('due2App')
             $cookieStore.put('token', data.token);
             currentUser = User.get();
             $http.get('/api/settings')
-              .success(function(settins){
-                currentUser.settings = settins;
+              .success(function(settings){
+                currentUser.settings = settings;
                 deferred.resolve(data);
                 return cb();
               })

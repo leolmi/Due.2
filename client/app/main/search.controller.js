@@ -31,7 +31,7 @@ angular.module('due2App')
     $scope.cache = Cache.data;
     var page = $scope.$parent.overpage;
     $scope.expired = (page.params && page.params.expired==true) ? true : false;
-    $scope.undone = (page.params && page.params.undone==true) ? true : false;
+    $scope.undone = (page.params && page.params.undone==false) ? false : true;
     $scope.details = (page.params && page.params.details==true) ? true : false;
     $scope.getDateStr = function(i) {
       return Util.toDateStr(i.date);

@@ -9,7 +9,6 @@
 <div class="background">
   <div class="login-form" ng-class="{'login-access':!loginform}">
     <form class="form" name="formlgn" ng-submit="login(formlgn)" novalidate>
-      <!-- EMAIL -->
       <div class="form-group" ng-class="{ 'has-success': formlgn.email.$valid && submitted,'has-error': formlgn.email.$invalid && submitted }">
         <label>Email</label>
         <input type="email" name="email" class="form-control" ng-model="user.email" required mongoose-error/>
@@ -17,18 +16,15 @@
         <p class="help-block" ng-show="formlgn.email.$error.required && submitted"> Inserisci il tuo indirizzo e-mail.</p>
         <p class="help-block" ng-show="formlgn.email.$error.mongoose"> {{ errors.email }}</p>
       </div>
-      <!-- PSWD -->
       <div class="form-group" ng-class="{ 'has-success': formlgn.password.$valid && submitted,'has-error': formlgn.password.$invalid && submitted }">
         <label>Password</label>
         <input type="password" name="password" class="form-control" ng-model="user.password" ng-minlength="3" required mongoose-error/>
         <p class="help-block" ng-show="(formlgn.password.$error.minlength || formlgn.password.$error.required) && submitted"> La password deve avere almeno 3 caratteri.</p>
         <p class="help-block" ng-show="formlgn.password.$error.mongoose">{{ errors.password }}</p>
       </div>
-      <!-- ERRORS -->
       <div class="form-group has-error">
         <p class="help-block">{{ errors.other }}</p>
       </div>
-      <!-- BUTTONS -->
       <div class="buttons-container">
         <button class="btn due-fa-btn due-fa-btn-trsp lgn-btn" type="button" ng-click="toggle(false)"><i class="fa fa-4x fa-user-plus"></i></button>
         <button class="btn due-fa-btn due-fa-btn-trsp lgn-btn onright" type="submit"><i class="fa fa-4x fa-play-circle"></i></button>
@@ -38,7 +34,6 @@
   </div>
   <div class="login-form" ng-class="{'login-register':loginform}">
     <form class="form" name="formreg" ng-submit="register(formreg)" novalidate>
-      <!-- EMAIL -->
       <div class="form-group" ng-class="{ 'has-success': formreg.email.$valid && submitted,'has-error': formreg.email.$invalid && submitted }">
         <label>Email</label>
         <input type="email" name="email" class="form-control" ng-model="user.email" required mongoose-error/>
@@ -46,14 +41,12 @@
         <p class="help-block error" ng-show="formreg.email.$error.required && submitted"> Inserisci il tuo indirizzo e-mail.</p>
         <p class="help-block error" ng-show="formreg.email.$error.mongoose"> {{ errors.email }}</p>
       </div>
-      <!-- PSWD -->
       <div class="form-group" ng-class="{ 'has-success': formreg.password.$valid && submitted,'has-error': formreg.password.$invalid && submitted }">
         <label>Password</label>
         <input type="password" name="password" class="form-control" ng-model="user.password" ng-minlength="3" required mongoose-error/>
         <p class="help-block error" ng-show="(formreg.password.$error.minlength || formreg.password.$error.required) && submitted"> La password deve avere almeno 3 caratteri.</p>
         <p class="help-block error" ng-show="formreg.password.$error.mongoose">{{ errors.password }}</p>
       </div>
-      <!-- REPEAT PSWD -->
       <div class="form-group" ng-class="{ 'has-success': formreg.confirmPassword.$error.compareTo && submitted,'has-error': formreg.confirmPassword.$invalid && submitted }">
         <label>Ripeti Password</label>
         <input type="password" name="confirmPassword" class="form-control" ng-model="user.password2" ng-minlength="3" required compare-to="user.password"/>
