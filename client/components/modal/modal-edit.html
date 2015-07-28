@@ -41,7 +41,7 @@
     <div class="item-state" ng-repeat="s in modal.item.state">
       <div class="date">{{getDateStr(s.date)}}</div>
       <div class="value onleft bold-text" ng-class="{'success':modal.item.type=='in', 'danger':modal.item.type=='out'}"><small>€</small>{{s.value}}</div>
-      <div class="content">{{s.desc}}</div>
+      <div class="content">{{s.type}} {{s.desc}}</div>
       <button class="btn btn-danger" type="button" ng-click="deleteState($index)"><i class="fa fa-times"></i></button>
     </div>
   </div>
