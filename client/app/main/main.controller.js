@@ -1,24 +1,70 @@
 'use strict';
 
 angular.module('due2App')
-  .directive('ngMouseWheel', [function() {
+  .directive('ngMouseWheel', ['$swipe','Logger',function($swipe,Logger) {
     return function(scope, element, attrs) {
+      var VELOCITY = 20;
+
+      function raisemove(v) {
+        scope.$apply(function(){
+          scope.$eval(scope[attrs.ngMouseWheel](v));
+        });
+      }
+
+      function prevent(e){
+        // for IE
+        e.returnValue = false;
+        // for Chrome and Firefox
+        if(e.preventDefault)
+          e.preventDefault();
+      }
+
       element.bind("DOMMouseScroll mousewheel onmousewheel", function(e) {
         // cross-browser wheel delta
         e = e || window.event; // old IE support
         if (e.originalEvent) e = e.originalEvent;
         var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
         if(delta != 0) {
-          scope.$apply(function(){
-            scope.$eval(scope[attrs.ngMouseWheel](-delta));
-          });
-          // for IE
-          e.returnValue = false;
-          // for Chrome and Firefox
-          if(e.preventDefault)
-            e.preventDefault();
+          raisemove(-delta);
+          prevent(e);
         }
       });
+
+      var _movY;
+      function initmove(e) {
+        _movY = e.clientY;
+        //Logger.info('Evento init-move',typeof e);
+        prevent(e);
+      }
+      function endmove(e) {
+        _movY = undefined;
+        _tchY = undefined;
+      }
+      function move(e) {
+        if (_movY && Math.abs(_movY - e.clientY)>=VELOCITY) {
+          var dy = _movY - e.clientY;
+          raisemove(Math.sign(dy));
+          _movY = e.clientY;
+        }
+        prevent(e);
+      }
+
+      element.bind("mousedown", initmove);
+      element.bind("mouseup", endmove);
+      element.bind("mousemove", move);
+      element.bind("mouseleave", endmove);
+
+      var _tchY;
+      function touchMoveHandler(e) {
+        if (_tchY && Math.abs(_tchY - e.y)>=VELOCITY) {
+          var dy = _tchY - e.y;
+          raisemove(Math.sign(dy));
+        }
+        _tchY = e.y || 0;
+      }
+
+      $swipe.bind(element, {'move': touchMoveHandler});
+
     };
   }])
   .controller('MainCtrl', ['$scope','$rootScope','Cache','$timeout','$window','$http','$filter','socket','Auth','$location','Modal','Util','Logger', function ($scope,$rootScope,Cache,$timeout,$window,$http,$filter,socket,Auth,$location,Modal,Util,Logger) {

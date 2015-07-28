@@ -5,6 +5,7 @@ angular.module('due2App', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
+  'ngTouch',
   'btford.socket-io',
   'ui.bootstrap',
   'toastr'
