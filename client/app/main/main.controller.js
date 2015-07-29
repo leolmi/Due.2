@@ -60,7 +60,8 @@ angular.module('due2App')
           var method = $element.attr("ng-touchmove");
           $scope.$apply($scope[method](event));
         }
-        $element.bind("touchmove", onTouchMove);
+        var event = window.navigator.msPointerEnabled ? 'MSPointerDown' : 'touchmove';
+        $element.bind(event, onTouchMove);
       }]
     }
   })
@@ -308,7 +309,8 @@ angular.module('due2App')
 
     var _touchY = undefined;
     $scope.touchmove = function(e) {
-      var y = e.originalEvent.touches[0].clientY;
+      if (window.navigator.msPointerEnabled && !e.isPrimary) return;
+      var y = e.originalEvent.touches[0].clientY || e.originalEvent.targetTouches[0].pageY || e.originalEvent.pageY || e.pageY;
       var dy = _touchY - y;
       if (_touchY && Math.abs(dy)>=20) {
         $scope.scrollData(Math.sign(dy), true);

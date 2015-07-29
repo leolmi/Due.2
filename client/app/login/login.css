@@ -55,10 +55,10 @@
 }
 
 .login-form {
-  width: 400px;
-  margin-left: calc(50% - 200px);
+  width: 340px;
+  margin-left: calc(50% - 170px);
   padding: 0 40px 20px;
-  left: 0px;
+  left: 0;
   position: absolute;
   -moz-transition: all 1.50s ease-in-out;
   -o-transition: all 1.50s ease-in-out;
