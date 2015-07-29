@@ -186,6 +186,10 @@ angular.module('due2App')
       openPage('app/main/overpage-search.html', params);
     };
 
+    $scope.test = function() {
+      $location.path = '/test';
+    };
+
     $scope.buttons = [{
       style: 'fa-power-off',
       action: $scope.logout

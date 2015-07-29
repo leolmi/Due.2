@@ -1,0 +1,9 @@
+<p>Pagina di test....</p>
+<div id="scroll-container" class="scroll-container">
+  <div id="scrollable" class="scrollable">
+    <div id="content" class="content">
+      <div class="scrollable-item" ng-class="{'different':($index % 4)==0}"
+           ng-repeat="i in items track by $index">posizione: {{i}}</div>
+    </div>
+  </div>
+</div>
