@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('due2App')
-  .directive('ngMouseWheel', ['$swipe','Logger',function($swipe,Logger) {
+  .directive('ngMouseWheel', ['Logger',function(Logger) {
     return function(scope, element, attrs) {
       var VELOCITY = 20;
 
@@ -33,12 +33,10 @@ angular.module('due2App')
       var _movY;
       function initmove(e) {
         _movY = e.clientY;
-        //Logger.info('Evento init-move',typeof e);
         prevent(e);
       }
       function endmove(e) {
         _movY = undefined;
-        _tchY = undefined;
       }
       function move(e) {
         if (_movY && Math.abs(_movY - e.clientY)>=VELOCITY) {
@@ -49,37 +47,37 @@ angular.module('due2App')
         prevent(e);
       }
 
-      element.bind("mousedown", initmove);
-      element.bind("mouseup", endmove);
-      element.bind("mousemove", move);
-      element.bind("mouseleave", endmove);
-
-      var _tchY;
-      function touchMoveHandler(e) {
-        if (_tchY && Math.abs(_tchY - e.y)>=VELOCITY) {
-          var dy = _tchY - e.y;
-          raisemove(Math.sign(dy));
-        }
-        _tchY = e.y || 0;
-      }
-
-      $swipe.bind(element, {'move': touchMoveHandler});
-
+      element.bind('mousedown', initmove);
+      element.bind('mouseup', endmove);
+      element.bind('mousemove', move);
+      element.bind('mouseleave', endmove);
     };
   }])
-  .controller('MainCtrl', ['$scope','$rootScope','Cache','$timeout','$window','$http','$filter','socket','Auth','$location','Modal','Util','Logger', function ($scope,$rootScope,Cache,$timeout,$window,$http,$filter,socket,Auth,$location,Modal,Util,Logger) {
+  .directive("ngTouchmove", function () {
+    return {
+      controller: ["$scope", "$element", function ($scope, $element) {
+        function onTouchMove(event) {
+          var method = $element.attr("ng-touchmove");
+          $scope.$apply($scope[method](event));
+        }
+        $element.bind("touchmove", onTouchMove);
+      }]
+    }
+  })
+  .controller('MainCtrl', ['$scope','$rootScope','Cache','$timeout','$window','$http','$filter','socket','Auth','$location','Modal','Util','Logger', function ($scope,$rootScope,Cache,$timeout,$window,$http,$filter,socket,Auth,$location,Modal,u,Logger) {
     $scope.itemHeight = 60;
     $scope.visibleDues = [];
     var w = angular.element($window);
     $scope.showdetails = false;
     $scope.cache = Cache.data;
     $scope.loggeduser = Auth.getCurrentUser();
+    $scope.touchon = u.onMobileOrTablet();
 
     function rebuildDays() {
       var days = [];
-      var today = Util.toDays(new Date());
+      var today = u.toDays(new Date());
       for(var d=Cache.data.from; d<=Cache.data.to; d++){
-        var date = Util.toDate(d);
+        var date = u.toDate(d);
         var wd = date.getDay();
         var num = date.getDate();
         if (num==1 && days.length>0)
@@ -88,8 +86,8 @@ angular.module('due2App')
           N:d,
           distance: d-today,
           year: date.getFullYear(),
-          month: Util.months[date.getMonth()],
-          desc: Util.daysOfWeek[wd],
+          month: u.months[date.getMonth()],
+          desc: u.daysOfWeek[wd],
           num: num,
           we: wd==0 || wd==6,
           today: (today==d),
@@ -104,7 +102,7 @@ angular.module('due2App')
     //  cb = cb || angular.noop;
     //  $http.get('/api/dues/'+$rootScope.userdata.from+'/'+$rootScope.userdata.to)
     //    .success(function(dues) {
-    //      dues.forEach(function(due){ Util.injectData(due); });
+    //      dues.forEach(function(due){ u.injectData(due); });
     //      $scope.visibleDues = dues;
     //      socket.syncUpdates('due', $scope.visibleDues);
     //      cb();
@@ -161,7 +159,7 @@ angular.module('due2App')
 
     var modalCreate = Modal.confirm.edit(function(item) {
       if (item.real_date)
-        item.date = Util.toDays(item.real_date);
+        item.date = u.toDays(item.real_date);
       $http.post('/api/dues', item)
         .error(function(err) {
           Logger.error("Errore creando una nuova scadenza", JSON.stringify(err));
@@ -243,13 +241,14 @@ angular.module('due2App')
       $scope.overpage = undefined;
     };
 
-    $scope.scrollData = function(value) {
+    $scope.scrollData = function(value, apply) {
       Cache.data.central += value;
       loadDues();
+      if (apply) $scope.$apply();
     };
 
     $scope.goto = function(date) {
-      var todate = Util.toDays(date);
+      var todate = u.toDays(date);
       if (todate) {
         Cache.data.central = todate;
         loadDues();
@@ -279,7 +278,7 @@ angular.module('due2App')
 
     $scope.handle = function(item) {
       var state = {
-        date: Util.toDays(new Date()),
+        date: u.toDays(new Date()),
         value: item.data.done ? 0 : item.data.realvalue.toFixed(2)
       };
       modalHandle(item, state);
@@ -307,9 +306,17 @@ angular.module('due2App')
       Cache.load(function() { loadDues(); });
     }
 
+    var _touchY = undefined;
+    $scope.touchmove = function(e) {
+      var y = e.originalEvent.touches[0].clientY;
+      var dy = _touchY - y;
+      if (_touchY && Math.abs(dy)>=20) {
+        $scope.scrollData(Math.sign(dy), true);
+        _touchY = y || 0;
+      }
+      if (!_touchY) _touchY = y || 0;
+    };
+
     Init();
-
     $scope.chartsize = {'w': w.width(), 'h': w.height() };
-
-    //loadDues();
   }]);

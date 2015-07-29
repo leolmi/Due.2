@@ -277,3 +277,17 @@
   width: 100px;
   padding: 10px;
 }
+
+
+.touch-layer {
+  pointer-events: none;
+  z-index: 10000;
+  top: 0;
+  left: calc(50% - 10px);
+  height: 100%;
+  position: absolute;
+  width: 60px;
+}
+.touch-layer.active {
+  pointer-events: auto;
+}
