@@ -11,7 +11,6 @@ exports.index = function(req, res) {
     owner: req.user._id,
     $where: 'this.date >= '+req.params.from+' && this.date <= '+req.params.to
   };
-  console.log('Richiesta: '+JSON.stringify(filter));
   return u.index(Due, req, res, filter);
 };
 
@@ -27,6 +26,11 @@ exports.create = function(req, res) {
   due.owner = req.user._id;
   due.active = true;
   return u.create(Due, req, res);
+};
+
+// Elimina tutti i dati dell'utente
+exports.clear = function(req, res) {
+  u.clear(Due, req, res, { owner: req.user._id });
 };
 
 // Updates an existing target in the DB.

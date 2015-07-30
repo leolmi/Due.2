@@ -71,7 +71,13 @@ exports.update = function(schema, req, res) {
   });
 };
 
-
+exports.clear = function(schema, req, res, filter) {
+  if (!filter)
+    return error(res, new Error('Filter must be defined!'));
+  schema.find(filter).remove(function () {
+    return ok(res);
+  });
+};
 
 exports.create = function(schema, req, res) {
   schema.create(req.body, function(err, obj) {
