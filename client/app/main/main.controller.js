@@ -77,22 +77,22 @@ angular.module('due2App')
     function rebuildDays() {
       var days = [];
       var today = u.toDays(new Date());
-      for(var d=Cache.data.from; d<=Cache.data.to; d++){
+      for (var d = Cache.data.from; d <= Cache.data.to; d++) {
         var date = u.toDate(d);
         var wd = date.getDay();
         var num = date.getDate();
-        if (num==1 && days.length>0)
-          days[days.length-1].last = true;
+        if (num == 1 && days.length > 0)
+          days[days.length - 1].last = true;
         days.push({
-          N:d,
-          distance: d-today,
+          N: d,
+          distance: d - today,
           year: date.getFullYear(),
           month: u.months[date.getMonth()],
           desc: u.daysOfWeek[wd],
           num: num,
-          we: wd==0 || wd==6,
-          today: (today==d),
-          central: d==Cache.data.central
+          we: wd == 0 || wd == 6,
+          today: (today == d),
+          central: d == Cache.data.central
         });
       }
       $scope.days = days;
@@ -294,7 +294,7 @@ angular.module('due2App')
     };
 
     function loadDues() {
-      var offset = 0;
+      var offset = 1;
       var hN2 = Math.floor((w.height() / $scope.itemHeight) / 2);
       Cache.data.from = Cache.data.central - hN2 + offset;
       Cache.data.to = Cache.data.central + hN2 + offset;

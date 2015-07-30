@@ -29,7 +29,7 @@
   top: 10px;
   font-size: 12px;
   color: #666;
-  z-index: 1000;
+  z-index: 500;
 }
 
 .scroller {
@@ -283,7 +283,7 @@
 
 .touch-layer {
   pointer-events: none;
-  z-index: 10000;
+  z-index: 150;
   top: 0;
   left: calc(50% - 10px);
   height: 100%;
@@ -292,4 +292,18 @@
 }
 .touch-layer.active {
   pointer-events: auto;
+}
+
+
+@media (max-width: 400px) {
+  .over-page h1 {
+    font-size: 20px;
+  }
+  .over-page label {
+    font-size: 12px;
+  }
+  .over-page .btn {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
 }

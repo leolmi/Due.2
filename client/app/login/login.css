@@ -101,3 +101,34 @@
 .lgn-btn.onright {
   right: 50px;
 }
+
+@media (max-width: 500px) {
+  .background {
+    height: 300px;
+  }
+  .hero-unit {
+    padding: 0 15px 20px;
+  }
+  .hero-unit .fa-5x {
+    font-size: 3em;
+  }
+  .hero-unit .separator {
+    margin: 0 10px;
+  }
+  .login-form {
+    width: calc(100% - 10px);
+    margin-left: 0;
+  }
+  .login-form .fa-4x {
+    font-size: 3em;
+  }
+  .login-footer {
+    font-size: 10px;
+  }
+  .form-group {
+    margin-bottom: 2px;
+  }
+  .btn {
+    padding: 6px 2px;
+  }
+}

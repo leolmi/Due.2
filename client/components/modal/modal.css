@@ -38,3 +38,29 @@
 .label-alone > i {
   font-size: 16px;
 }
+
+@media (max-width: 500px) {
+  .modal-dialog {
+    margin: 0;
+  }
+  .modal-primary .modal-header,
+  .modal-info .modal-header,
+  .modal-success .modal-header,
+  .modal-warning .modal-header,
+  .modal-danger .modal-header,
+  .modal-edit .modal-header,
+  .modal-footer,
+  .modal-content {
+    border-radius: 0;
+  }
+
+  .monitor-content {
+    font-size: 16px;
+  }
+  .monitor .fa-5x {
+    font-size: 4em;
+  }
+  .modal-body label {
+    margin-bottom: 0;
+  }
+}
