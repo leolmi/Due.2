@@ -13,11 +13,12 @@
   width: 100%;
   max-width: 400px;
   display: inline-block;
+  position: relative;
 }
 .input-group-text > i {
   position: absolute;
   right: 6px;
-  top: 0;
+  top: 6px;
   font-size: 18px;
 }
 

@@ -1,9 +1,8 @@
 <div class="main-container" ng-keyup="handlekey($event)" tabindex="0">
   <div class="vertical-menu">
-    <i class="fa fa-fw due-fa-btn" ng-hide="b.separator" ng-repeat-start="b in buttons" ng-class="b.style" ng-click="b.action()"></i>
+    <i class="fa fa-fw due-fa-btn" ng-hide="b.separator" ng-repeat-start="b in buttons" ng-class="getButtonClass(b)" ng-click="b.action()"></i>
     <div class="separator" ng-show="b.separator" ng-repeat-end></div>
   </div>
-
   <div class="logged-user"><i class="fa" ng-class="{'fa-mobile':touchon, 'fa-desktop':!touchon}"></i> {{loggeduser.email}}</div>
   <div class="over-page" ng-class="{'active':overpage}">
     <div class="over-page-content">

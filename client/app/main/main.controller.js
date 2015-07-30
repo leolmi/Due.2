@@ -146,11 +146,20 @@ angular.module('due2App')
       Cache.clear();
     };
 
+    $scope.isPage = function(name) {
+      return ($scope.overpage && $scope.overpage.name == name);
+    };
+
     function openPage(template, params){
-      $scope.overpage = {
-        template: 'app/overpages/overpage-'+template+'.html',
-        params: params
-      };
+      if ($scope.isPage(template))
+        $scope.closeOverlay();
+      else {
+        $scope.overpage = {
+          name: template,
+          template: 'app/overpages/overpage-' + template + '.html',
+          params: params
+        };
+      }
     }
 
     $scope.handlekey = function(e){
@@ -176,6 +185,7 @@ angular.module('due2App')
     });
 
     $scope.newelement = function() {
+      $scope.closeOverlay();
       var item = {
         name: 'Nuova Scadenza',
         date: Cache.data.central,
@@ -202,21 +212,30 @@ angular.module('due2App')
       action: $scope.logout
     },{
       style: 'fa-cog',
-      action: $scope.profile
+      action: $scope.profile,
+      active: function() { return $scope.isPage('settings'); }
     },{
       separator: true
     },{
       style: 'fa-search',
-      action: $scope.search
+      action: $scope.search,
+      active: function() { return $scope.isPage('search'); }
     },{
       style: 'fa-map-marker',
-      action: $scope.gotopage
+      action: $scope.gotopage,
+      active: function() { return $scope.isPage('goto'); }
     },{
       separator: true
     },{
       style: 'fa-bookmark-o',
       action: $scope.newelement
     }];
+
+    $scope.getButtonClass = function(b){
+      var cls = b.style;
+      if (b.active && b.active()) cls += ' checked';
+      return cls;
+    };
 
     $scope.$on('$destroy', function () {
     //  socket.unsyncUpdates('due');
@@ -243,7 +262,9 @@ angular.module('due2App')
       }
     });
 
-    $scope.edit = function(item){ modalEdit(item); };
+    $scope.edit = function(item){
+      modalEdit(item);
+    };
 
     $scope.closeOverlay = function() {
       $scope.submenu = undefined;
