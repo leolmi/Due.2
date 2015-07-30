@@ -32,7 +32,7 @@
       </div>
     </form>
   </div>
-  <div class="login-form" ng-class="{'login-register':loginform}">
+  <div class="login-form hidden" ng-class="{'login-register':loginform}">
     <form class="form" name="formreg" ng-submit="register(formreg)" novalidate>
       <div class="form-group" ng-class="{ 'has-success': formreg.email.$valid && submitted,'has-error': formreg.email.$invalid && submitted }">
         <label>Email</label>

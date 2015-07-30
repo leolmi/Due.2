@@ -90,4 +90,6 @@ angular.module('due2App')
     $scope.recover = function() {
       Logger.info('[TODO] - Recover password tool...');
     };
+
+    $('.login-form').removeClass('hidden');
   }]);

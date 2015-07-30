@@ -1,38 +1,41 @@
-<div class="overpage overpage-settings container" ng-controller="SettingsCtrl">
+<div class="overpage overpage-settings" ng-controller="SettingsCtrl">
   <p class="user-logged"><i class="fa fa-2x fa-user"></i> {{loggeduser.email}}</p>
-  <br>
-  <h1>Opzioni</h1>
-  <br>
-  <div><label><input type="checkbox" ng-model="user.settings.chart" disabled> Mostra diagramma dei budgets</label></div>
-  <br>
-  <label>Budget Predefinito</label>
-  <input type="text" class="form-control input-sm" ng-model="user.settings.budget" />
-  <br>
-  <button class="btn btn-primary" ng-click="updateSettings()">Aggiorna Opzioni</button>
-  <br><br><br>
-  <h1>Modifica Password</h1>
-  <form class="form" name="form" ng-submit="changePassword(form)" novalidate>
-    <div class="form-group">
-      <label>Password Corrente</label>
-      <input type="password" name="password" class="form-control input-sm" ng-model="user.oldPassword" mongoose-error/>
-      <p class="help-block error" ng-show="form.password.$error.mongoose">{{ errors.other }}</p>
+  <div class="row">
+    <div class="col-md-4">
+      <h1>Opzioni</h1>
+      <label><input type="checkbox" ng-model="user.settings.chart" disabled> Mostra diagramma dei budgets</label>
+      <div class="form-group">
+        <label>Budget Predefinito</label>
+        <input type="text" class="form-control input-sm" ng-model="user.settings.budget" />
+      </div>
+      <button class="btn btn-primary" ng-click="updateSettings()">Salva Opzioni</button>
     </div>
-    <div class="form-group">
-      <label>Nuova Password</label>
-      <input type="password" name="newPassword" class="form-control input-sm" ng-model="user.newPassword" ng-minlength="3" required/>
-      <p class="help-block error" ng-show="(form.newPassword.$error.minlength || form.newPassword.$error.required) && submitted"> La password deve avere almeno 3 caratteri.</p>
+    <div class="col-md-4">
+      <h1>Modifica Password</h1>
+      <form class="form" name="form" ng-submit="changePassword(form)" novalidate>
+        <div class="form-group">
+          <label>Password Corrente</label>
+          <input type="password" name="password" class="form-control input-sm" ng-model="user.oldPassword" mongoose-error/>
+          <p class="help-block error" ng-show="form.password.$error.mongoose">{{ errors.other }}</p>
+        </div>
+        <div class="form-group">
+          <label>Nuova Password</label>
+          <input type="password" name="newPassword" class="form-control input-sm" ng-model="user.newPassword" ng-minlength="3" required/>
+          <p class="help-block error" ng-show="(form.newPassword.$error.minlength || form.newPassword.$error.required) && submitted"> La password deve avere almeno 3 caratteri.</p>
+        </div>
+        <!-- REPEAT PSWD -->
+        <div class="form-group">
+          <label>Ripeti Password</label>
+          <input type="password" name="confirmPassword" class="form-control input-sm" ng-model="user.password2" ng-minlength="3" required compare-to="user.newPassword"/>
+          <p class="help-block error" ng-show="(form.confirmPassword.$error.minlength || form.confirmPassword.$error.required || form.confirmPassword.$error.compareTo) && submitted"> Ripeti la password correttamente.</p>
+        </div>
+        <p class="help-block"> {{ message }} </p>
+        <button class="btn btn-primary" type="submit">Salva Nuova Password</button>
+      </form>
     </div>
-    <!-- REPEAT PSWD -->
-    <div class="form-group">
-      <label>Ripeti Password</label>
-      <input type="password" name="confirmPassword" class="form-control input-sm" ng-model="user.password2" ng-minlength="3" required compare-to="user.newPassword"/>
-      <p class="help-block error" ng-show="(form.confirmPassword.$error.minlength || form.confirmPassword.$error.required || form.confirmPassword.$error.compareTo) && submitted"> Ripeti la password correttamente.</p>
+    <div class="col-md-4">
+      <h1>Utilità</h1>
+      <button class="btn btn-warning" ng-click="download()">Scarica dati</button>
     </div>
-    <p class="help-block"> {{ message }} </p>
-    <button class="btn btn-primary" type="submit">Salva Nuova Password</button>
-  </form>
-  <br><br><br>
-  <h1>Utilità</h1>
-  <br>
-  <button class="btn btn-warning" ng-click="download()">Scarica dati</button>
+  </div>
 </div>

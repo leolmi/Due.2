@@ -153,6 +153,14 @@ angular.module('due2App')
       };
     }
 
+    $scope.handlekey = function(e){
+      switch (e.keyCode){
+        case 27:
+          $scope.closeOverlay();
+          break;
+      }
+    };
+
     $scope.profile = function() {
       openPage('app/main/overpage-settings.html');
     };

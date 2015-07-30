@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('due2App')
-  .controller('GotoCtrl', ['$scope','$rootScope','Util', function($scope,$rootScope,Util) {
+  .controller('GotoCtrl', ['$scope','Cache','$rootScope','Util', function($scope,Cache,$rootScope,Util) {
     $scope.target = 'today';
     $scope.initdate = new Date();
 
@@ -23,7 +23,7 @@ angular.module('due2App')
         case 'today': $scope.$parent.goto(new Date()); break;
         case 'userdate': $scope.$parent.goto(new Date($("#timepicker").val())); break;
         case 'adddays':
-          var n = $rootScope.userdata.central + $scope.daystoadd;
+          var n = Cache.data.central + $scope.daystoadd;
           $scope.$parent.goto(Util.toDate(n));
           break;
       }
