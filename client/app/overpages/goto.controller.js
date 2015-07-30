@@ -14,7 +14,7 @@ angular.module('due2App')
     $scope.dateOptions = {
       formatYear: 'yy',
       startingDay: 1
-    }
+    };
 
     $scope.daystoadd = 10;
 

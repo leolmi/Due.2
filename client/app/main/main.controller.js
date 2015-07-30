@@ -148,7 +148,7 @@ angular.module('due2App')
 
     function openPage(template, params){
       $scope.overpage = {
-        template: template,
+        template: 'app/overpages/overpage-'+template+'.html',
         params: params
       };
     }
@@ -162,7 +162,7 @@ angular.module('due2App')
     };
 
     $scope.profile = function() {
-      openPage('app/main/overpage-settings.html');
+      openPage('settings');
     };
 
 
@@ -186,11 +186,11 @@ angular.module('due2App')
     };
 
     $scope.gotopage = function() {
-      openPage('app/main/overpage-goto.html');
+      openPage('goto');
     };
 
     $scope.search = function(params) {
-      openPage('app/main/overpage-search.html', params);
+      openPage('search', params);
     };
 
     $scope.test = function() {
